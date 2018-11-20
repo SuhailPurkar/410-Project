@@ -49,7 +49,7 @@
 	<div id="page">
 	<nav class="fh5co-nav" role="navigation">
 		<div class="top-menu">
-			<div class="container">
+			<div class="container" id="id01">
 				<div class="row">
 					<div class="col-xs-2">
 						<!-- <div id="fh5co-logo"><a href="index.html">Air<span>.</span></a></div> -->
@@ -144,14 +144,18 @@
 			<div class="row">
 				<div class="col-md-4">
 					<div class="fh5co-portfolio animate-box">
-						<a href="#">
+						<a >
 							<div class="portfolio-entry" style="background-image: url(https://i.imgur.com/hTzxHJE.jpg);"></div>
 							<div class="portfolio-text">
 								<h3>London Underground</h3>
 
 								<p>Build an automated system that ensures all the trains arrive in a timely manner</p>
+
+								<button id="bruhton">See More</button>
+
+
 								
-								<div float:left; display:inline;>
+								<div float:left; display:inline; style="margin: 20px">
 									<h4> Choose Project Prefrence</h4>
 									<BUTTON id="proj_1_pref_1" onclick="submitClick(1)">1</BUTTON>
 									<BUTTON id="proj_1_pref_2" onclick="submitClick(2)">2</BUTTON>
@@ -174,8 +178,12 @@
 								<h3>London Underground</h3>
 
 								<p>Build an automated system that ensures all the trains arrive in a timely manner</p>
+
+								<button id="bruhton">See More</button>
+
+
 								
-								<div float:left; display:inline;>
+								<div float:left; display:inline; style="margin: 20px">
 									<h4> Choose Project Prefrence</h4>
 									<BUTTON id="proj_1_pref_1" onclick="submitClick(1)">1</BUTTON>
 									<BUTTON id="proj_1_pref_2" onclick="submitClick(2)">2</BUTTON>
@@ -198,8 +206,12 @@
 								<h3>London Underground</h3>
 
 								<p>Build an automated system that ensures all the trains arrive in a timely manner</p>
+
+								<button id="bruhton">See More</button>
+
+
 								
-								<div float:left; display:inline;>
+								<div float:left; display:inline; style="margin: 20px">
 									<h4> Choose Project Prefrence</h4>
 									<BUTTON id="proj_1_pref_1" onclick="submitClick(1)">1</BUTTON>
 									<BUTTON id="proj_1_pref_2" onclick="submitClick(2)">2</BUTTON>
@@ -222,8 +234,12 @@
 								<h3>London Underground</h3>
 
 								<p>Build an automated system that ensures all the trains arrive in a timely manner</p>
+
+								<button id="bruhton">See More</button>
+
+
 								
-								<div float:left; display:inline;>
+								<div float:left; display:inline; style="margin: 20px">
 									<h4> Choose Project Prefrence</h4>
 									<BUTTON id="proj_1_pref_1" onclick="submitClick(1)">1</BUTTON>
 									<BUTTON id="proj_1_pref_2" onclick="submitClick(2)">2</BUTTON>
@@ -246,8 +262,12 @@
 								<h3>London Underground</h3>
 
 								<p>Build an automated system that ensures all the trains arrive in a timely manner</p>
+
+								<button id="bruhton">See More</button>
+
+
 								
-								<div float:left; display:inline;>
+								<div float:left; display:inline; style="margin: 20px">
 									<h4> Choose Project Prefrence</h4>
 									<BUTTON id="proj_1_pref_1" onclick="submitClick(1)">1</BUTTON>
 									<BUTTON id="proj_1_pref_2" onclick="submitClick(2)">2</BUTTON>
@@ -270,8 +290,12 @@
 								<h3>London Underground</h3>
 
 								<p>Build an automated system that ensures all the trains arrive in a timely manner</p>
+
+								<button id="bruhton">See More</button>
+
+
 								
-								<div float:left; display:inline;>
+								<div float:left; display:inline; style="margin: 20px">
 									<h4> Choose Project Prefrence</h4>
 									<BUTTON id="proj_1_pref_1" onclick="submitClick(1)">1</BUTTON>
 									<BUTTON id="proj_1_pref_2" onclick="submitClick(2)">2</BUTTON>
@@ -394,6 +418,20 @@
 	<!-- Main -->
 	<script src="js/main.js"></script>
 
+	<!-- Modal -->
+	<script type="text/javascript">
+		var modal = document.getElementById('id01');
+		var btn = document.getElementById('bruhton');
+		btn.onclick = function() {
+    		modal.style.display = "block";
+		}
+		window.onclick = function(event) {
+	    if (event.target == modal) {
+	        modal.style.display = "none";
+    	}
+	}
+
+	</script>
 	</body>
 </html>
 
