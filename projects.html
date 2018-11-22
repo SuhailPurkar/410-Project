@@ -600,7 +600,13 @@
 
     <script type="text/javascript">
         function alertfunction() {
-            $("#projectRow").append('<div class="col-md-4"> <div class="fh5co-portfolio animate-box"> <a href="#"> <div class="portfolio-entry" style="background-image: url(https://i.imgur.com/hTzxHJE.jpg);"></div> <div class="portfolio-text"> <h3>London Underground</h3> <p>Build an automated system that ensures all the trains arrive in a timely manner</p> <button id="bruhton">See More</button> <div float:left; display:inline; style="margin: 20px"> <h4> Choose Project Prefrence</h4> <BUTTON id="proj_1_pref_1" onclick="submitClick(1)">1</BUTTON> <BUTTON id="proj_1_pref_2" onclick="submitClick(2)">2</BUTTON> <BUTTON id="proj_1_pref_2" onclick="submitClick(3)">3</BUTTON> <BUTTON id="proj_1_pref_2" onclick="submitClick(4)">4</BUTTON> <BUTTON id="proj_1_pref_2" onclick="submitClick(5)">5</BUTTON> <BUTTON id="proj_1_pref_2" onclick="submitClick(6)">6</BUTTON> <BUTTON id="proj_1_pref_2" onclick="submitClick(7)">7</BUTTON> </div> </div> </a> </div> </div>');
+
+            $("#projectRow").append('<div class="col-md-4"> <div class="fh5co-portfolio animate-box fadeInUp animated-fast"> <a href="#"> <div class="portfolio-entry" style="background-image: url(https://i.imgur.com/hTzxHJE.jpg);"></div> <div class="portfolio-text"> <h3>London Underground</h3> <p>Build an automated system that ensures all the trains arrive in a timely manner</p> <button id="bruhton">See More</button> <div float:left; display:inline; style="margin: 20px"> <h4> Choose Project Prefrence</h4> <BUTTON id="proj_1_pref_1" onclick="submitClick(1)">1</BUTTON> <BUTTON id="proj_1_pref_2" onclick="submitClick(2)">2</BUTTON> <BUTTON id="proj_1_pref_2" onclick="submitClick(3)">3</BUTTON> <BUTTON id="proj_1_pref_2" onclick="submitClick(4)">4</BUTTON> <BUTTON id="proj_1_pref_2" onclick="submitClick(5)">5</BUTTON> <BUTTON id="proj_1_pref_2" onclick="submitClick(6)">6</BUTTON> <BUTTON id="proj_1_pref_2" onclick="submitClick(7)">7</BUTTON> </div> </div> </a> </div> </div>');
+
+                var editElem = document.getElementById("projectRow");
+                var userVersion = editElem.innerHTML;
+
+                localStorage.userEdits = userVersion;
         }
     </script>
 </body>
