@@ -583,18 +583,18 @@
         function submitClick_2(value) {
             var firebaseRef = firebase.database().ref();
 
-            /*var messageText = mainText.value;*/
+            email = format(email);
 
-            firebaseRef.child("Suhail").child("Project 2").child("Prefrence").set(value);
+            firebaseRef.child(email).child("Project 2").child("Prefrence").set(value);
 
         }
 
         function submitClick_3(value) {
             var firebaseRef = firebase.database().ref();
 
-            /*var messageText = mainText.value;*/
+            email = format(email);
 
-            firebaseRef.child("Suhail").child("project 3").child("Prefrence").set(value);
+            firebaseRef.child(email).child("project 3").child("Prefrence").set(value);
 
         }
     </script> 
