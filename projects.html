@@ -155,7 +155,7 @@
                                 </li>
                                 <!-- <li><a href="about.html">About</a></li> -->
                                 <!-- <li><a href="contact.html">Contact</a></li> -->
-                                <li class="btn-cta"><a href="#"><span>Login</span></a></li>
+                                <li class="btn-cta"><a href="projects.html"><span>Login</span></a></li>
                             </ul>
                         </div>
                     </div>
@@ -172,7 +172,7 @@
                         <p>Read through the projects and indicate a prefrance</p>
                     </div>
                 </div>
-                <div class="row">
+                <div id="projectRow" class="row">
                     <div class="col-md-4">
                         <div class="fh5co-portfolio animate-box">
                             <a>
@@ -181,8 +181,6 @@
                                     <h3>London Underground</h3>
 
                                     <p>Build an automated system that ensures all the trains arrive in a timely manner</p>
-
-                                    <p id="ltry"> Name </p>
 
                                     <button id="bruhton">See More</button>
 
@@ -279,7 +277,8 @@
                             </a>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    
+                    <!--  <div class="col-md-4">
                         <div class="fh5co-portfolio animate-box">
                             <a href="#">
                                 <div class="portfolio-entry" style="background-image: url(https://i.imgur.com/hTzxHJE.jpg);"></div>
@@ -304,33 +303,22 @@
                                 </div>
                             </a>
                         </div>
-                    </div>
+                    </div>  -->
                     <div class="col-md-4">
                         <div class="fh5co-portfolio animate-box">
-                            <a href="#">
-                                <div class="portfolio-entry" style="background-image: url(https://i.imgur.com/hTzxHJE.jpg);"></div>
+                            <a >
                                 <div class="portfolio-text">
-                                    <h3>London Underground</h3>
+                                    <h3>Add Projects</h3>
 
-                                    <p>Build an automated system that ensures all the trains arrive in a timely manner</p>
-
-                                    <button id="bruhton">See More</button>
-
-                                    <div float:left; display:inline; style="margin: 20px">
-                                        <h4> Choose Project Prefrence</h4>
-                                        <BUTTON id="proj_1_pref_1" onclick="submitClick(1)">1</BUTTON>
-                                        <BUTTON id="proj_1_pref_2" onclick="submitClick(2)">2</BUTTON>
-                                        <BUTTON id="proj_1_pref_2" onclick="submitClick(3)">3</BUTTON>
-                                        <BUTTON id="proj_1_pref_2" onclick="submitClick(4)">4</BUTTON>
-                                        <BUTTON id="proj_1_pref_2" onclick="submitClick(5)">5</BUTTON>
-                                        <BUTTON id="proj_1_pref_2" onclick="submitClick(6)">6</BUTTON>
-                                        <BUTTON id="proj_1_pref_2" onclick="submitClick(7)">7</BUTTON>
-                                    </div>
+                                    <button onclick="alertfunction()" id="project_add" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
+                                        <i class="material-icons">add</i>
+                                    </button>
 
                                 </div>
                             </a>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -344,7 +332,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-5 animate-box">
-                        <div class="user-frame">
+                        <div id="testing" class="user-frame">
                             <h3>Wireframe Connects the Underlying Conceptual Structure</h3>
                             <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts far from the countries Vokalia and Consonantia, there live the blind texts. </p>
                             <span>Louie Jie Mahusay</span>
@@ -597,7 +585,24 @@
             firebaseRef.child(email).child("project 3").child("Prefrence").set(value);
 
         }
+
+        
+
+        /*function addProjects(){
+            var editElem = document.getElementById("projectRow");
+            var userVersion = editElem.innerHTML;
+
+            document.getElementById("projectRow").innerHTML.
+
+            localStorage.userEdits = userVersion;
+        }*/
     </script> 
+
+    <script type="text/javascript">
+        function alertfunction() {
+            $("#projectRow").append('<div class="col-md-4"> <div class="fh5co-portfolio animate-box"> <a href="#"> <div class="portfolio-entry" style="background-image: url(https://i.imgur.com/hTzxHJE.jpg);"></div> <div class="portfolio-text"> <h3>London Underground</h3> <p>Build an automated system that ensures all the trains arrive in a timely manner</p> <button id="bruhton">See More</button> <div float:left; display:inline; style="margin: 20px"> <h4> Choose Project Prefrence</h4> <BUTTON id="proj_1_pref_1" onclick="submitClick(1)">1</BUTTON> <BUTTON id="proj_1_pref_2" onclick="submitClick(2)">2</BUTTON> <BUTTON id="proj_1_pref_2" onclick="submitClick(3)">3</BUTTON> <BUTTON id="proj_1_pref_2" onclick="submitClick(4)">4</BUTTON> <BUTTON id="proj_1_pref_2" onclick="submitClick(5)">5</BUTTON> <BUTTON id="proj_1_pref_2" onclick="submitClick(6)">6</BUTTON> <BUTTON id="proj_1_pref_2" onclick="submitClick(7)">7</BUTTON> </div> </div> </a> </div> </div>');
+        }
+    </script>
 </body>
 
 </html>
