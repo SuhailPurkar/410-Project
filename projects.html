@@ -115,8 +115,8 @@
                 <label class="mdl-textfield__label" for="sample3">Email</label>
             </div>
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class="mdl-textfield__input" type="text" id="loginPassword">
-                <label class="mdl-textfield__label" for="sample3">Password</label>
+                <input class="mdl-textfield__input" type="password" id="loginPassword">
+                <label class="mdl-textfield__label" for="sample3">Password</label> 
             </div>
         </div>
         <div class="mdl-dialog__actions">
@@ -137,7 +137,7 @@
         <nav class="fh5co-nav" role="navigation">
             <div class="top-menu">
                 <div class="container" id="id01">
-                    <div class="row">
+                    <div class="row" >
                         <div class="col-xs-2">
                             <!-- <div id="fh5co-logo"><a href="index.html">Air<span>.</span></a></div> -->
                         </div>
@@ -165,15 +165,40 @@
         </nav>
 
         <div id="fh5co-portfolio">
-            <div class="container">
+            <div class="container" id="head1">
                 <div class="row animate-box">
                     <div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
                         <h2>Projects</h2>
                         <p>Read through the projects and indicate a prefrance</p>
                     </div>
                 </div>
-                <div id="projectRow" class="row">
-                    <div class="col-md-4">
+                 <!-- <div class="col-md-4" id="og_add_button">
+                    </div> -->
+
+                        <div class="fh5co-portfolio animate-box">
+                            <a >
+                                <div class="portfolio-text" >
+                                    <h3>Add Projects</h3>
+
+                                    <button onclick="add_project_to_list()" id="project_add" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
+                                        <i class="material-icons">add</i>
+                                    </button>
+                                    
+                                    <!-- <h3>Update </h3> -->
+
+                                    <!-- <button onclick="update_projects()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                                                   <i class="material-icons">add</i>
+                                    </button> -->
+
+                                </div>
+
+                               
+                            </a>
+                        </div>
+
+                   
+                <div id="projectRow" class="row" contenteditable="true">
+                    <!-- <div class="col-md-4">
                         <div class="fh5co-portfolio animate-box">
                             <a>
                                 <div class="portfolio-entry" style="background-image: url(https://i.imgur.com/hTzxHJE.jpg);"></div>
@@ -182,7 +207,7 @@
 
                                     <p>Build an automated system that ensures all the trains arrive in a timely manner</p>
 
-                                    <button id="bruhton">See More</button>
+                                    <button id="bruhton" onclick="saveButton()">See More</button>
 
                                     <div float:left; display:inline; style="margin: 20px">
                                         <h4> Choose Project Prefrence</h4>
@@ -250,8 +275,8 @@
                                 </div>
                             </a>
                         </div>
-                    </div>
-                    <div class="col-md-4">
+                    </div> -->
+                    <!-- <div class="col-md-4">
                         <div class="fh5co-portfolio animate-box">
                             <a href="#">
                                 <div class="portfolio-entry" style="background-image: url(https://i.imgur.com/hTzxHJE.jpg);"></div>
@@ -276,7 +301,7 @@
                                 </div>
                             </a>
                         </div>
-                    </div>
+                    </div> -->
                     
                     <!--  <div class="col-md-4">
                         <div class="fh5co-portfolio animate-box">
@@ -304,20 +329,23 @@
                             </a>
                         </div>
                     </div>  -->
-                    <div class="col-md-4">
+                   <!--  <div class="col-md-4" id="og_add_button">
                         <div class="fh5co-portfolio animate-box">
                             <a >
-                                <div class="portfolio-text">
+                                <div class="portfolio-text" >
                                     <h3>Add Projects</h3>
 
-                                    <button onclick="alertfunction()" id="project_add" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
+                                    <button onclick="add_project_to_list()" id="project_add" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
                                         <i class="material-icons">add</i>
+                                    </button>
+                                    <button onclick="update_projects()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                                                    Update
                                     </button>
 
                                 </div>
                             </a>
                         </div>
-                    </div>
+                    </div> -->
 
                 </div>
             </div>
@@ -449,6 +477,7 @@
         <a href="#" class="js-gotop"><i class="icon-arrow-up22"></i></a>
     </div>
 
+    <!-- FIREBASE CONNECTION -->
     <script src="https://www.gstatic.com/firebasejs/5.5.8/firebase.js"></script>
     <script>
         // Initialize Firebase
@@ -544,9 +573,13 @@
                     // ...
                 });
 
+                update_projects();
+
             }
 
         );
+
+       
 
         function format(value){
             value = value.replace(/\./g,'');
@@ -564,7 +597,7 @@
 
             email = format(email);
 
-            firebaseRef.child(email).child("Project 1").child("Prefrence").set(value);
+            firebaseRef.child("Student").child(email).child("Project 1").child("Prefrence").set(value);
 
         }
 
@@ -573,7 +606,7 @@
 
             email = format(email);
 
-            firebaseRef.child(email).child("Project 2").child("Prefrence").set(value);
+            firebaseRef.child("Student").child(email).child("Project 2").child("Prefrence").set(value);
 
         }
 
@@ -582,7 +615,7 @@
 
             email = format(email);
 
-            firebaseRef.child(email).child("project 3").child("Prefrence").set(value);
+            firebaseRef.child("Student").child(email).child("project 3").child("Prefrence").set(value);
 
         }
 
@@ -598,16 +631,80 @@
         }*/
     </script> 
 
+    <button onclick="saveButton()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"> Save Project
+    </button>
+
     <script type="text/javascript">
-        function alertfunction() {
+        var counter = 0;
 
-            $("#projectRow").append('<div class="col-md-4"> <div class="fh5co-portfolio animate-box fadeInUp animated-fast"> <a href="#"> <div class="portfolio-entry" style="background-image: url(https://i.imgur.com/hTzxHJE.jpg);"></div> <div class="portfolio-text"> <h3>London Underground</h3> <p>Build an automated system that ensures all the trains arrive in a timely manner</p> <button id="bruhton">See More</button> <div float:left; display:inline; style="margin: 20px"> <h4> Choose Project Prefrence</h4> <BUTTON id="proj_1_pref_1" onclick="submitClick(1)">1</BUTTON> <BUTTON id="proj_1_pref_2" onclick="submitClick(2)">2</BUTTON> <BUTTON id="proj_1_pref_2" onclick="submitClick(3)">3</BUTTON> <BUTTON id="proj_1_pref_2" onclick="submitClick(4)">4</BUTTON> <BUTTON id="proj_1_pref_2" onclick="submitClick(5)">5</BUTTON> <BUTTON id="proj_1_pref_2" onclick="submitClick(6)">6</BUTTON> <BUTTON id="proj_1_pref_2" onclick="submitClick(7)">7</BUTTON> </div> </div> </a> </div> </div>');
+        function add_project_to_list() {
+            var firebaseRef = firebase.database().ref();
 
-                var editElem = document.getElementById("projectRow");
-                var userVersion = editElem.innerHTML;
+            /* Let Fletcher Add Projects */
 
-                localStorage.userEdits = userVersion;
+            $("#projectRow").append('<div class="col-md-4" id="temp_project" style="color: black"> <div class="fh5co-portfolio animate-box fadeInUp animated-fast"> <a style="color: black"> <div class="portfolio-entry" style="background-image: url(https://i.imgur.com/hTzxHJE.jpg);"></div> <div class="portfolio-text"> <h3>Bombay Railroad</h3> <p style="color: black">Build an automated system that ensures all the trains arrive in a timely manner</p> <button onclick="saveButton()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"> Save Project </button> <div float:left; display:inline; style="margin: 20px"> <h4> Choose Project Prefrence</h4> <BUTTON id="proj_1_pref_1" onclick="submitClick_1(1)">1</BUTTON> <BUTTON id="proj_1_pref_2" onclick="submitClick_1(2)">2</BUTTON> <BUTTON id="proj_1_pref_2" onclick="submitClick_1(3)">3</BUTTON> <BUTTON id="proj_1_pref_2" onclick="submitClick_1(4)">4</BUTTON> <BUTTON id="proj_1_pref_2" onclick="submitClick_1(5)">5</BUTTON> <BUTTON id="proj_1_pref_2" onclick="submitClick_1(6)">6</BUTTON> <BUTTON id="proj_1_pref_2" onclick="submitClick_1(7)">7</BUTTON> </div> </div> </a> </div> </div>');
+
+            /* Get Existing Code*/
+            var f1 = firebaseRef = firebase.database().ref().child("Code");
+
+
+            
+
+
+
+
+             var f1 = firebaseRef = firebase.database().ref().child("Code");
+            /* f1 = f1..replace(/\n|\r/g, "");
+             f1.on('value', function(datasnapshot){
+                document.getElementById("head1").innerText = datasnapshot.val();
+
+             }*/
+
         }
+
+
+
+        function saveButton(){
+            /* Add Updated Projects list to the Database */
+             var firebaseRef = firebase.database().ref();
+
+             var code_block = document.getElementById("projectRow").innerHTML;
+             firebaseRef.child("code").child("projects").child("text").set(code_block);
+             counter = counter + 1;
+             firebaseRef.child("code").child("projects").child("counter").set(counter);
+
+              /*$("#projectRow").append(code_block);*/
+              update_projects();
+
+        }
+
+         $( document ).ready(function() {
+            update_projects();
+        }); 
+
+        function update_projects(){
+
+            var firebaseRef = firebase.database().ref("code");
+            firebaseRef.on("value", function(snapshot) {
+                snapshot.forEach(function(childSnapshot) {
+                var childData = childSnapshot.val();
+                var display = childData.text;
+                display = display.replace('<div class="col-md-4" id="og_add_button"> <div class="fh5co-portfolio animate-box"> <a > <div class="portfolio-text" > <h3>Add Projects</h3> <button onclick="add_project_to_list()" id="project_add" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored"> <i class="material-icons">add</i> </button> <button onclick="update_projects()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"> Update </button> </div> </a> </div> </div> </div> </div> </div>', "");
+
+
+                /*var code_block = document.getElementById("temp_project");
+                code_block.parentNode.removeChild(code_block);*/
+                $("#projectRow").empty();
+                $("#projectRow").append(display);
+
+                /*alert("Testing");*/
+                });
+            });
+            
+            
+        }
+
+
     </script>
 </body>
 
