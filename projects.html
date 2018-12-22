@@ -237,6 +237,12 @@
                             </button>
                         </center>
 
+                        <center>
+                            <button onclick="arr_test()" style="margin: 20px" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                                Try it
+                            </button>
+                        </center>
+
                     </div>
                 </a>
             </div>
@@ -498,7 +504,7 @@
                         var childData = childSnapshot.val();
                         var user_pref = childData.prefrence;
                         
-                        /*add_to_arr(i, user_pref);*/
+                        add_to_arr(i, user_pref);
 
                         pref_num = user_pref;
                         i++;
@@ -513,12 +519,40 @@
 
             }
 
+            /*Making Matrix To Apply Hungarian algorithm to help assign projects*/
+
             function add_to_arr(i, val){
                 pref_arr[i] = val;
             }
 
             function arr_test(){
-                alert(pref_arr.toString());
+                alert(pref_arr.toString())
+            }
+
+             function db_test(){
+                
+
+                var temp = '/students/cs410/';
+                var firebaseRef = firebase.database().ref(temp);
+                var pref_num = 0;
+                var i = 0;
+                firebaseRef.on("value", function(snapshot) {
+                    
+                    snapshot.forEach(function(childSnapshot) {
+                        var childData = childSnapshot.val();
+                        var user_name = childData.name;
+                        
+                        /*alert(user_name);*/
+                        add_to_arr(i, user_name);
+
+                        
+                        i++;
+                        
+                    });
+                    i = 0;
+
+
+                });
             }
 
 
@@ -528,33 +562,12 @@
                 firebase.auth().signOut();
             }
 
+
+
            /* var book = 'books';
             db_test(book);*/
 
-            function db_test(){
-                
-
-                var temp = '/students/';
-                var firebaseRef = firebase.database().ref(temp);
-                var pref_num = 0;
-                var i = 0;
-                firebaseRef.on("value", function(snapshot) {
-                    
-                    snapshot.forEach(function(childSnapshot) {
-                        var childData = childSnapshot.val();
-                        var user_pref = childData.prefrence;
-                        
-                        add_to_arr(i, user_pref);
-
-                        pref_num = user_pref;
-                        i++;
-                        
-                    });
-                    i = 0;
-
-
-                });
-            }
+           
             
         </script>
 
@@ -673,6 +686,11 @@
                 temp++;
                 firebaseRef.child("projects").child("counter").set(temp);
             }
+
+
+
+
+
             function saveButton() {
                 /* Add Updated Projects list to the Database */
                 save_counter++;
