@@ -89,7 +89,7 @@
         }
         
         .studentView {
-            display: none;
+            display: block;
         }
     </style>
 
@@ -226,6 +226,14 @@
                         <center>
                             <button onclick="deleteButton()" style="background-color: crimson" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
                                 Delete Projects
+                            </button>
+                        </center>
+
+                        <!-- /* DB Structure Tests */  -->
+
+                        <center>
+                            <button onclick="db_test()" style="margin: 20px" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                                Try it
                             </button>
                         </center>
 
@@ -396,14 +404,11 @@
 
         <script type="text/javascript">
             
-            var pref = 0; //Need to Give this more specific name
-
+            var pref = 1; //Need to Give this more specific name
             var email = "";
             var password = "";
-
             /*User Authentication*/
             firebase.auth().onAuthStateChanged(function(user) {
-
                /* If user exists hide the login cover*/
                 if (user) {
                     $("#hideme").text(user.email);
@@ -421,18 +426,14 @@
                     dialog.showModal();
                 }
             });
-
             /*Check user email and password*/
-
             $("#loginBtn").click(
                 function() {
                     email = $("#loginEmail").val();
                     password = $("#loginPassword").val();
                     
-
                     $("#checkingEmail").text(email);
                     $("#checkingPassword").text(password);
-
                     firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
                         // Handle Errors here.
                         $("#loginError").show().text(error.message);
@@ -441,82 +442,85 @@
                     update_projects();
                 }
             );
-
             /*Formatting email strings
             suhail.purkar@umb.edu -> suhailpurkar*/
-
             function format_user_email(value) {
                 value = value.replace(/\./g, '');
                 value = value.replace("@", '');
                 value = value.replace("umbedu", '');
                 value = value.replace("gmailcom", '');
+                value = value.replace("mailcom", '');
                 return value;
             }
-
-
             function choose_project_preference(project_number, increment) {
-
                 var firebaseRef = firebase.database().ref();
-
                 /*Setting User Prefrence for projects, Incrementing/Decrementing based on which button clicked
                 + = 1 | - = 0*/
-
                 firebase.auth().onAuthStateChanged(function(user) {
                     if (user) {
                         console.log(user);
                         //Getting email address of current user logged in
                         var user = firebase.auth().currentUser.email;
-
                         var project_name = "project" + project_number.toString();
-
                         if (increment == 1) {
                             pref++;
                         } else {
                             if (pref > 1) {
                                 pref--;
                             }
-
                         }
                         display_users_selected_preferences(format_user_email(user), project_number);
                         //Sending new prefrence to database
-                        firebaseRef.child(format_user_email(user)).child(project_name).child("prefrence").set(pref);
-
-
+                        firebaseRef.child("students").child("cs410").child(format_user_email(user)).child("projects").child(project_name).child("prefrence").set(pref);
+                        firebaseRef.child("students").child("cs410").child(format_user_email(user)).child("name").set(format_user_email(user));
                     } else {
                         console.log('No user is signed in.');
                     }
                 });
-
-
             }
+
+            var pref_arr = [];
+
+
+
+
 
             function display_users_selected_preferences(username, project_number) {
                 
-                var firebaseRef = firebase.database().ref(username);
 
+                var temp = '/students/cs410/' + username + '/projects/';
+                var firebaseRef = firebase.database().ref(temp);
                 var pref_num = 0;
                 var i = 0;
-
                 firebaseRef.on("value", function(snapshot) {
-
                     $("#display_pref_div").empty();
-
                     snapshot.forEach(function(childSnapshot) {
-
                         var childData = childSnapshot.val();
                         var user_pref = childData.prefrence;
+                        
+                        /*add_to_arr(i, user_pref);*/
 
                         pref_num = user_pref;
-
                         i++;
-
                         $("#display_pref_div").append('<h4>Project ' + i + ': ' + user_pref + '</h4>');
-
                     });
-
                     i = 0;
+
+
                 });
+                
+
+
             }
+
+            function add_to_arr(i, val){
+                pref_arr[i] = val;
+            }
+
+            function arr_test(){
+                alert(pref_arr.toString());
+            }
+
 
             //Signing out
             function signout() {
@@ -524,19 +528,43 @@
                 firebase.auth().signOut();
             }
 
+           /* var book = 'books';
+            db_test(book);*/
+
+            function db_test(){
+                
+
+                var temp = '/students/';
+                var firebaseRef = firebase.database().ref(temp);
+                var pref_num = 0;
+                var i = 0;
+                firebaseRef.on("value", function(snapshot) {
+                    
+                    snapshot.forEach(function(childSnapshot) {
+                        var childData = childSnapshot.val();
+                        var user_pref = childData.prefrence;
+                        
+                        add_to_arr(i, user_pref);
+
+                        pref_num = user_pref;
+                        i++;
+                        
+                    });
+                    i = 0;
+
+
+                });
+            }
             
         </script>
 
         <script type="text/javascript">
             var counter = 0;
-
             var update_counter = 0;
             var add_counter = 0;
             var save_counter = 0;
             var save_first = 0;
-
             var number_counter = 0;
-
             //Let user edit webpage if they have master code, need to do more work on this
             function edit_allowed() {
                 if ($("#editP").val() == "410") {
@@ -545,9 +573,7 @@
                     document.getElementById('projectRow').contentEditable = 'true';
                 }
             }
-
             $(document).ready(function() {
-
                 update_projects();
                 var firebaseRef = firebase.database().ref("code");
                 firebaseRef.on("value", function(snapshot) {
@@ -559,23 +585,16 @@
                         if (cnt == null) {
                             counter = 0;
                         }
-
                     });
                 });
-
             });
-
             var pics_counter = 0;
-
             function add_project_to_list() {
-
                 var firebaseRef = firebase.database().ref("code");
-
                 firebaseRef.on("value", function(snapshot) {
                     snapshot.forEach(function(childSnapshot) {
                         var childData = childSnapshot.val();
                         var cnt = childData.counter;
-
                         number_counter = cnt;
                         if (cnt == null) {
                             number_counter = 0;
@@ -583,49 +602,35 @@
                         
                     });
                 });
-
                 if (add_counter != 0) {
                     alert("Please make sure to save and update existing projects");
                 } else {
                     var firebaseRef = firebase.database().ref();
                     /* Let Prof Add Projects */
-
                     var pics = ["https://freehtml5.co/demos/air/premium/images/portfolio-2.jpg", "https://freehtml5.co/demos/air/premium/images/portfolio-1.jpg", "https://freehtml5.co/demos/air/premium/images/portfolio-3.jpg",
                         "https://freehtml5.co/demos/air/premium/images/portfolio-4.jpg", "https://freehtml5.co/demos/air/premium/images/blog-1.jpg", "https://freehtml5.co/demos/air/premium/images/portfolio-6.jpg"
                     ];
-
                     var names = ["Cynthias Cactus Company", "Los Pollos Hermanos", "Coats for Kids", "Vacations Express", "Adventures Abroad", "Hoops for Humanity"];
-
                     var cities = ["Reno", "Albuquerque", "Stockholm", "Accra", "Madrid", "Boston"];
-
                     $("#projectRow").append('<div class="col-md-4" id="temp_project" style="color: black"> <div class="fh5co-portfolio animate-box fadeInUp animated-fast"> <a style="color: black"> <div class="portfolio-entry" style="background-image: url( ' + pics[pics_counter] + ');"></div> <div class="portfolio-text"> <h3>' + names[pics_counter] + '</h3>  <h4> 📌 ' + cities[pics_counter] + ' - ' + (number_counter + 1) + '</h4> <p style="color: black">EDIT ME! Write a project description</p>  <div float:left; display:inline; style="margin: 20px"> </div> </div> </a> </div> </div>');
-
                     $("#projectSelectionRow").append('<a style="margin:10px;"> <div class="portfolio-text" id = "selector" > <h3> Project ' + (number_counter + 1) + ' : Use the Buttons to rank this project</h3> <button id="' + (number_counter + 1) + '" onclick="choose_project_preference(this.id, 1)" style = "margin:10px"  class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"> + </button>  <button id="' + (number_counter + 1) + '" onclick="choose_project_preference(this.id, 0)" style = "margin:10px"  class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"> - </button></div> </a>');
-
                     pics_counter++;
                     number_counter++;
-
                     add_counter++;
                     save_counter = 0;
-
                     if (pics_counter > 5) {
                         pics_counter = 0;
                     }
                 }
             }
-
             function updateCounter(foo) {
-
                 if (foo == 1) {
-
                 } else {
                     var firebaseRef = firebase.database().ref("code");
-
                     firebaseRef.on("value", function(snapshot) {
                         snapshot.forEach(function(childSnapshot) {
                             var childData = childSnapshot.val();
                             var cnt = childData.counter;
-
                             counter = cnt;
                             if (cnt == null) {
                                 counter = 0;
@@ -633,12 +638,10 @@
                             
                         });
                     });
-
                     if (save_first != 0) {
                         save_first = 0;
                         return;
                     }
-
                     if (add_counter == 0) {
                         save_first = 0;
                         alert("Please Add a Project First");
@@ -649,24 +652,17 @@
                         update_counter++;
                         final_update(update_counter);
                         
-
                     }
                 }
-
             }
-
             function final_update(foo) {
                 var firebaseRef = firebase.database().ref("code");
-
                 var temp = 0;
-
                 var firebaseRef = firebase.database().ref("code");
-
                 firebaseRef.on("value", function(snapshot) {
                     snapshot.forEach(function(childSnapshot) {
                         var childData = childSnapshot.val();
                         var cnt = childData.counter;
-
                         temp = cnt;
                         if (cnt == null) {
                             counter = 0;
@@ -674,25 +670,19 @@
                         
                     });
                 });
-
                 temp++;
                 firebaseRef.child("projects").child("counter").set(temp);
             }
-
             function saveButton() {
                 /* Add Updated Projects list to the Database */
-
                 save_counter++;
-
                 var firebaseRef = firebase.database().ref();
                 var code_block = document.getElementById("projectRow").innerHTML;
                 var code_block_pref = document.getElementById("projectSelectionRow").innerHTML;
                 
                 firebaseRef.child("code").child("projects").child("text").set(code_block);
                 firebaseRef.child("code").child("projects").child("textpref").set(code_block_pref);
-
                 firebaseRef.child("code").child("projects").child("counter").set(counter);
-
                 
                 update_projects();
                 if (add_counter != 0) {
@@ -700,10 +690,8 @@
                     add_counter = 0;
                     update_counter++;
                     final_update(update_counter);
-
                 }
             }
-
             function deleteButton() {
                 if (confirm('Are you sure you want to Delete all Projects')) {
                     var update_counter = 0;
@@ -720,7 +708,6 @@
                     alert("Good Choice");
                 }
             }
-
             function update_projects() {
                 var firebaseRef = firebase.database().ref("code");
                 firebaseRef.on("value", function(snapshot) {
@@ -737,7 +724,6 @@
                         
                     });
                 });
-
             }
         </script>
 </body>
