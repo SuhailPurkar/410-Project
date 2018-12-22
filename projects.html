@@ -88,6 +88,9 @@
         #loginError {
             display: none;
         }
+        .studentView {
+            display: none;
+        }
     </style>
 
     <!-- Modernizr JS -->
@@ -155,7 +158,7 @@
                                 </li>
                                 <!-- <li><a href="about.html">About</a></li> -->
                                 <!-- <li><a href="contact.html">Contact</a></li> -->
-                                <li class="btn-cta"><a href="projects.html"><span>Login</span></a></li>
+                                <li class="btn-cta"><a href="projects.html" onclick="signout()"><span>Sign Out</span></a></li>
                             </ul>
                         </div>
                     </div>
@@ -166,18 +169,24 @@
 
         <div id="fh5co-portfolio">
             <div class="container" id="head1">
-                <div class="row animate-box">
+                <div class="row animate-box" >
                     <div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
                         <h2>Projects</h2>
-                        <p>Read through the projects and indicate a prefrance</p>
+                        <p>Read through the projects and indicate a preferance</p>
                     </div>
                 </div>
                  <!-- <div class="col-md-4" id="og_add_button">
                     </div> -->
 
                         <div class="fh5co-portfolio animate-box">
-                            <a >
+
+                       
+
+
+
+                            <a class="studentView">
                                 <div class="portfolio-text" >
+
                                     <h3>Add Projects</h3>
 
                                     <button onclick="add_project_to_list()" id="project_add" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
@@ -193,229 +202,135 @@
                                 </div>
 
                                
+
+
+
+                               
                             </a>
+
+
+                            <a class="studentView"> 
+                             <div class="portfolio-text" >
+                                    <h3>Save Project Edits</h3>
+
+                                    <button onclick="saveButton()" id="project_add" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
+                                        <i class="material-icons">↓</i>
+                                    </button>
+                                    
+                                    <!-- <h3>Update </h3> -->
+
+                                    <!-- <button onclick="update_projects()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                                                   <i class="material-icons">add</i>
+                                    </button> -->
+
+                                </div>
+                            </a>
+
+
+                            <a class="studentView"> 
+                             <div class="portfolio-text" >
+                                    <h3>Update Projects</h3>
+
+                                    <button onclick="updateCounter(0)" id="project_add" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
+                                        <i class="material-icons">⇪</i>
+                                    </button>
+                                    
+                                    
+
+                                </div>
+                            </a>
+
+                            
                         </div>
 
                    
-                <div id="projectRow" class="row" contenteditable="true">
-                    <!-- <div class="col-md-4">
-                        <div class="fh5co-portfolio animate-box">
-                            <a>
-                                <div class="portfolio-entry" style="background-image: url(https://i.imgur.com/hTzxHJE.jpg);"></div>
-                                <div class="portfolio-text">
-                                    <h3>London Underground</h3>
-
-                                    <p>Build an automated system that ensures all the trains arrive in a timely manner</p>
-
-                                    <button id="bruhton" onclick="saveButton()">See More</button>
-
-                                    <div float:left; display:inline; style="margin: 20px">
-                                        <h4> Choose Project Prefrence</h4>
-                                        <BUTTON id="proj_1_pref_1" onclick="submitClick_1(1)">1</BUTTON>
-                                        <BUTTON id="proj_1_pref_2" onclick="submitClick_1(2)">2</BUTTON>
-                                        <BUTTON id="proj_1_pref_2" onclick="submitClick_1(3)">3</BUTTON>
-                                        <BUTTON id="proj_1_pref_2" onclick="submitClick_1(4)">4</BUTTON>
-                                        <BUTTON id="proj_1_pref_2" onclick="submitClick_1(5)">5</BUTTON>
-                                        <BUTTON id="proj_1_pref_2" onclick="submitClick_1(6)">6</BUTTON>
-                                        <BUTTON id="proj_1_pref_2" onclick="submitClick_1(7)">7</BUTTON>
-                                    </div>
-
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="fh5co-portfolio animate-box">
-                            <a>
-                                <div class="portfolio-entry" style="background-image: url(https://i.imgur.com/dMsoKUY.jpg);"></div>
-                                <div class="portfolio-text">
-                                    <h3>New York Bus System</h3>
-
-                                    <p>Build an automated system that ensures all the busses arrive in a timely manner</p>
-
-                                    <button id="bruhton">See More</button>
-
-                                    <div float:left; display:inline; style="margin: 20px">
-                                        <h4> Choose Project Prefrence</h4>
-                                        <BUTTON id="proj_1_pref_1" onclick="submitClick_2(1)">1</BUTTON>
-                                        <BUTTON id="proj_1_pref_2" onclick="submitClick_2(2)">2</BUTTON>
-                                        <BUTTON id="proj_1_pref_2" onclick="submitClick_2(3)">3</BUTTON>
-                                        <BUTTON id="proj_1_pref_2" onclick="submitClick_2(4)">4</BUTTON>
-                                        <BUTTON id="proj_1_pref_2" onclick="submitClick_2(5)">5</BUTTON>
-                                        <BUTTON id="proj_1_pref_2" onclick="submitClick_2(6)">6</BUTTON>
-                                        <BUTTON id="proj_1_pref_2" onclick="submitClick_2(7)">7</BUTTON>
-                                    </div>
-
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="fh5co-portfolio animate-box">
-                            <a>
-                                <div class="portfolio-entry" style="background-image: url(https://i.imgur.com/Ab2cGfK.jpg);"></div>
-                                <div class="portfolio-text">
-                                    <h3>Seattle Airspace</h3>
-
-                                    <p>Build an automated system that ensures all the helicopters arrive in a timely manner</p>
-
-                                    <button id="bruhton">See More</button>
-
-                                    <div float:left; display:inline; style="margin: 20px">
-                                        <h4> Choose Project Prefrence</h4>
-                                        <BUTTON id="proj_1_pref_1" onclick="submitClick_3(1)">1</BUTTON>
-                                        <BUTTON id="proj_1_pref_2" onclick="submitClick_3(2)">2</BUTTON>
-                                        <BUTTON id="proj_1_pref_2" onclick="submitClick_3(3)">3</BUTTON>
-                                        <BUTTON id="proj_1_pref_2" onclick="submitClick_3(4)">4</BUTTON>
-                                        <BUTTON id="proj_1_pref_2" onclick="submitClick_3(5)">5</BUTTON>
-                                        <BUTTON id="proj_1_pref_2" onclick="submitClick_3(6)">6</BUTTON>
-                                        <BUTTON id="proj_1_pref_2" onclick="submitClick_3(7)">7</BUTTON>
-                                    </div>
-
-                                </div>
-                            </a>
-                        </div>
-                    </div> -->
-                    <!-- <div class="col-md-4">
-                        <div class="fh5co-portfolio animate-box">
-                            <a href="#">
-                                <div class="portfolio-entry" style="background-image: url(https://i.imgur.com/hTzxHJE.jpg);"></div>
-                                <div class="portfolio-text">
-                                    <h3>London Underground</h3>
-
-                                    <p>Build an automated system that ensures all the trains arrive in a timely manner</p>
-
-                                    <button id="bruhton">See More</button>
-
-                                    <div float:left; display:inline; style="margin: 20px">
-                                        <h4> Choose Project Prefrence</h4>
-                                        <BUTTON id="proj_1_pref_1" onclick="submitClick(1)">1</BUTTON>
-                                        <BUTTON id="proj_1_pref_2" onclick="submitClick(2)">2</BUTTON>
-                                        <BUTTON id="proj_1_pref_2" onclick="submitClick(3)">3</BUTTON>
-                                        <BUTTON id="proj_1_pref_2" onclick="submitClick(4)">4</BUTTON>
-                                        <BUTTON id="proj_1_pref_2" onclick="submitClick(5)">5</BUTTON>
-                                        <BUTTON id="proj_1_pref_2" onclick="submitClick(6)">6</BUTTON>
-                                        <BUTTON id="proj_1_pref_2" onclick="submitClick(7)">7</BUTTON>
-                                    </div>
-
-                                </div>
-                            </a>
-                        </div>
-                    </div> -->
+                <div id="projectRow" class="row" contenteditable="false">
                     
-                    <!--  <div class="col-md-4">
-                        <div class="fh5co-portfolio animate-box">
-                            <a href="#">
-                                <div class="portfolio-entry" style="background-image: url(https://i.imgur.com/hTzxHJE.jpg);"></div>
-                                <div class="portfolio-text">
-                                    <h3>London Underground</h3>
 
-                                    <p>Build an automated system that ensures all the trains arrive in a timely manner</p>
-
-                                    <button id="bruhton">See More</button>
-
-                                    <div float:left; display:inline; style="margin: 20px">
-                                        <h4> Choose Project Prefrence</h4>
-                                        <BUTTON id="proj_1_pref_1" onclick="submitClick(1)">1</BUTTON>
-                                        <BUTTON id="proj_1_pref_2" onclick="submitClick(2)">2</BUTTON>
-                                        <BUTTON id="proj_1_pref_2" onclick="submitClick(3)">3</BUTTON>
-                                        <BUTTON id="proj_1_pref_2" onclick="submitClick(4)">4</BUTTON>
-                                        <BUTTON id="proj_1_pref_2" onclick="submitClick(5)">5</BUTTON>
-                                        <BUTTON id="proj_1_pref_2" onclick="submitClick(6)">6</BUTTON>
-                                        <BUTTON id="proj_1_pref_2" onclick="submitClick(7)">7</BUTTON>
-                                    </div>
-
-                                </div>
-                            </a>
-                        </div>
-                    </div>  -->
-                   <!--  <div class="col-md-4" id="og_add_button">
-                        <div class="fh5co-portfolio animate-box">
-                            <a >
+                </div>
+                 <a class="studentView"> 
+                                
                                 <div class="portfolio-text" >
-                                    <h3>Add Projects</h3>
 
-                                    <button onclick="add_project_to_list()" id="project_add" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
-                                        <i class="material-icons">add</i>
-                                    </button>
-                                    <button onclick="update_projects()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
-                                                    Update
-                                    </button>
+                                    
+                                  <center> <button onclick="deleteButton()" style="background-color: crimson" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                                      Delete Projects
+                                    </button> </center> 
 
                                 </div>
                             </a>
-                        </div>
-                    </div> -->
-
-                </div>
             </div>
         </div>
 
-        <div id="fh5co-wireframe">
-            <div class="container">
+        <div id="fh5co-portfolio">
+            <div class="container" id="head1">
+                <div class="row animate-box" >
+                    <div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
+
+                        <h2>Choose your project prefrence</h2>
+                    </div>
+                </div>
+                <h3>Your current selections : </h3>
+                <div id="display_pref_div" class="fh5co-portfolio animate-box">
+                
+                	<h4>Project 1 :</h4>
+                	<h4>Project 2 :</h4>
+                	<h4>Project 3 :</h4>
+                	<h4>Project 4 :</h4>
+                	<h4>Project 5 :</h4>
+                	<h4>Project 6 :</h4>
+
+                </div>
+                 
+
+                        <div id="projectSelectionRow" class="fh5co-portfolio animate-box">
+
+                       
+
+
+
+
+
+                   
+                <div  class="row" contenteditable="false">
+                   
+
+                </div>
+                 
+            </div>
+        </div>
+
+
+
+        
+
+        <div id="fh5co-started" >
+            <div class="overlay" style="background-color: #64b5f6"></div>
+            <div class="container" >
                 <div class="row animate-box">
                     <div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
-                        <h2>Example Project #1</h2>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-5 animate-box">
-                        <div id="testing" class="user-frame">
-                            <h3>Wireframe Connects the Underlying Conceptual Structure</h3>
-                            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts far from the countries Vokalia and Consonantia, there live the blind texts. </p>
-                            <span>Louie Jie Mahusay</span>
-                            <br>
-                            <small>CEO, Founder</small>
-                        </div>
-                    </div>
-                    <div class="col-md-7 animate-box">
-                        <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts far from the countries Vokalia and Consonantia, there live the blind texts. </p>
-                        <blockquote>
-                            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts far from the countries Vokalia and Consonantia, there live the blind texts. </p>
-                        </blockquote>
-                        <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts far from the countries Vokalia and Consonantia, there live the blind texts. far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts far from the countries Vokalia and Consonantia, there live the blind texts. </p>
-                        <!-- <div float:left; display:inline;>
-                        <p> Choose Project Prefrence</p>
-                        <BUTTON id="proj_1_pref_1" onclick="submitClick(1)">1</BUTTON>
-                        <BUTTON id="proj_1_pref_2" onclick="submitClick(2)">2</BUTTON>
-                        <BUTTON id="proj_1_pref_3" onclick="submitClick(3)">3</BUTTON>
-                        <BUTTON id="proj_1_pref_4" onclick="submitClick(4)">4</BUTTON>
-                        <BUTTON id="proj_1_pref_5" onclick="submitClick(5)">5</BUTTON>
-                        <BUTTON id="proj_1_pref_6" onclick="submitClick(6)">6</BUTTON>
-                        <BUTTON id="proj_1_pref_7" onclick="submitClick(7)">7</BUTTON>
+                         <a >
+                            <div class="portfolio-text" >
 
-                    </div> -->
+                                    <h3 style="color: white">Enter Code Below to turn on edit mode</h3>
+                                    <input style="color: white" class="mdl-textfield__input" type="text" id="editP" >
+                                    <button onclick="edit_allowed()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" style="margin: 10px; background-color: white; color: black;">
+                                      Submit
+                                    </button>
+                                    
+                                    <!-- <h3>Update </h3> -->
 
-                        <div float:left; display:inline;>
-                            <h3> Choose Project Prefrence</h3>
-                            <BUTTON id="proj_1_pref_1" onclick="submitClick(1)">1</BUTTON>
-                            <BUTTON id="proj_1_pref_2" onclick="submitClick(2)">2</BUTTON>
-                            <BUTTON id="proj_1_pref_2" onclick="submitClick(3)">3</BUTTON>
-                            <BUTTON id="proj_1_pref_2" onclick="submitClick(4)">4</BUTTON>
-                            <BUTTON id="proj_1_pref_2" onclick="submitClick(5)">5</BUTTON>
-                            <BUTTON id="proj_1_pref_2" onclick="submitClick(6)">6</BUTTON>
-                            <BUTTON id="proj_1_pref_2" onclick="submitClick(7)">7</BUTTON>
-                        </div>
+                                    <!-- <button onclick="update_projects()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                                                   <i class="material-icons">add</i>
+                                    </button> -->
 
-                    </div>
+                                </div>
+                        </a></div>
                 </div>
             </div>
         </div>
 
-        <div id="fh5co-started">
-            <div class="overlay"></div>
-            <div class="container">
-                <div class="row animate-box">
-                    <div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
-                        <h2>Contact Me!</h2>
-                        <p>Facilis ipsum reprehenderit nemo molestias. Aut cum mollitia reprehenderit. Eos cumque dicta adipisci architecto culpa amet.</p>
-                        <p><a href="#" class="btn btn-default btn-lg">Contact Us</a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <footer id="fh5co-footer" role="contentinfo">
+        <footer id="fh5co-footer" role="contentinfo" >
             <div class="container">
                 <div class="row row-pb-md">
                     <div class="col-md-4 fh5co-widget">
@@ -527,15 +442,20 @@
     </script>
 
      <script type="text/javascript">
+     var student_logged_in = 0;
+     var prof_logged_in = 2;
+     var user_logged_in = ""
+     var pref = 0;
+
      var username = "Fuck";
      var email = "";
      var password = "";
      var submitBtn = document.getElementById("submitBtn");
-
         firebase.auth().onAuthStateChanged(function(user) {
-            if (user) {
-                $(".login-cover").hide();
 
+            if (user) {
+                $("#hideme").text(user.email);
+                $(".login-cover").hide();
                 var dialog = document.querySelector('#loginDialog');
                 if (!dialog.showModal) {
                     dialogPolyfill.registerDialog(dialog);
@@ -549,162 +469,443 @@
                 dialog.showModal();
             }
         });
-
         $("#loginBtn").click(
             function() {
                 email = $("#loginEmail").val();
                 password = $("#loginPassword").val();
+               /* $("#hideme").text(user.displayName);*/
 
-                //String temp = email;
-                /*username = $("#ltry").val();
-                username = username.toString();*/
+                
+                /*$(".studentView").hide();*/
+                // If it is the Admin 
+                /*user_logged_in = format(email);
 
+                if (format(email) == "pencil"){
+                    prof_logged_in = 1;
+                    update_page(prof_logged_in);
+                } else {
+                    student_logged_in = 3;
+                    update_page(student_logged_in);
+                }*/
 
-                //username = $("#loginEmail").val();
-
+                
                 $("#checkingEmail").text(email);
                 $("#checkingPassword").text(password);
-                /*$("#loginProgress").show();
-                $("#loginBtn").hide();*/
-
+                
                 firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
                     // Handle Errors here.
                     $("#loginError").show().text(error.message);
                     // ...
                 });
-
                 update_projects();
-
             }
-
         );
-
        
+        
 
+        function update_page(){
+            var user = firebase.auth().currentUser;
+            var name = user.displayName;
+            var mail = user.email;
+           /* alert(user);
+            alert(name);
+            alert(mail);*/
+
+
+        }
+
+
+        $( document ).ready(function() {
+            
+        }); 
+       
         function format(value){
             value = value.replace(/\./g,'');
             value = value.replace("@", '');
             value = value.replace("umbedu", '');
             value = value.replace("gmailcom", '');
-
             return value;
         }
-
         
-
         function submitClick_1(value) {
             var firebaseRef = firebase.database().ref();
-
             email = format(email);
-
             firebaseRef.child("Student").child(email).child("Project 1").child("Prefrence").set(value);
-
         }
-
         function submitClick_2(value) {
             var firebaseRef = firebase.database().ref();
-
             email = format(email);
-
             firebaseRef.child("Student").child(email).child("Project 2").child("Prefrence").set(value);
-
         }
-
         function submitClick_3(value) {
             var firebaseRef = firebase.database().ref();
-
             email = format(email);
-
             firebaseRef.child("Student").child(email).child("project 3").child("Prefrence").set(value);
+        }
+
+        function save_user_prefrence(value){
 
         }
 
-        
+        function submit(project_number, increment){
 
+
+        	var firebaseRef = firebase.database().ref();
+
+        	
+
+
+        	//Setting User Prefrence 
+			firebase.auth().onAuthStateChanged(function(user) {
+			    if (user) {
+			        console.log(user);
+			        var user = firebase.auth().currentUser.email; 
+
+			        var project_name = "project" + project_number.toString();
+
+			        
+
+			        if (increment == 1 & ){
+			        	pref++;
+			        } else {
+			        	if (pref > 1){
+			        		pref--;
+			        	}
+			        	
+			        }
+			      	display_project_selection(format(user), project_number);
+            		firebaseRef.child(format(user)).child(project_name).child("prefrence").set(pref);
+
+            		/*firebaseRef.child("Student").child(format(user)).child(project_name).child("prefrence").set(pref);*/
+			        
+			        
+			        
+			    } else {
+			        console.log('No user is signed in.');
+			    }
+			});
+
+
+			//Displaying user prefrence 
+
+			
+
+            
+        }
+
+
+        function display_project_selection(username,project_number){
+        	/*alert(username);*/
+        	/*alert(project_number);*/
+        	var firebaseRef = firebase.database().ref(username);
+        	
+        	var pref_num = 0;
+        	var i = 0;
+
+
+            firebaseRef.on("value", function(snapshot) {
+
+            	$("#display_pref_div").empty();
+            	
+                snapshot.forEach(function(childSnapshot) {
+                	
+                var childData = childSnapshot.val();
+                var user_pref = childData.prefrence;
+
+                pref_num = user_pref;
+
+                i++;
+                
+                $("#display_pref_div").append('<h4>Project ' + i + ': ' + user_pref + '</h4>');
+               /* $("ol").append('<li>Project ' + project_number + ': ' + user_pref + '</li>');*/
+               /*$("ol").empty();*/
+
+
+               
+                });
+
+                i = 0;
+            });
+        }
+
+        function signout(){
+            var firebaseRef = firebase.database().ref();
+            firebase.auth().signOut();
+        }
+        
         /*function addProjects(){
             var editElem = document.getElementById("projectRow");
             var userVersion = editElem.innerHTML;
-
             document.getElementById("projectRow").innerHTML.
-
             localStorage.userEdits = userVersion;
         }*/
     </script> 
 
-    <button onclick="saveButton()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"> Save Project
-    </button>
+    
 
     <script type="text/javascript">
         var counter = 0;
 
-        function add_project_to_list() {
-            var firebaseRef = firebase.database().ref();
 
+        var update_counter = 0;
+        var add_counter = 0;
+        var save_counter = 0;
+        var save_first = 0;
+
+
+
+        var number_counter = 0;
+
+
+
+        function edit_allowed(){
+            if ($("#editP").val() == "410"){
+                $(".studentView").css("display", "block");
+                $("#pbutton").css("display", "none");
+                document.getElementById('projectRow').contentEditable='true';
+            } 
+        }
+
+
+        $( document ).ready(function() {
+        
+
+            update_projects();
+            var firebaseRef = firebase.database().ref("code");
+             firebaseRef.on("value", function(snapshot) {
+                snapshot.forEach(function(childSnapshot) {
+                var childData = childSnapshot.val();
+                var cnt = childData.counter;
+                /*alert(cnt);*/
+                counter = cnt;
+                if (cnt == null){
+                    counter = 0;
+                }
+                /*alert("Counter :" + counter);
+                if (update_counter == true){
+                counter++;
+                update_counter = false;
+                } 
+
+                firebaseRef.child("projects").child("counter").set(counter);*/
+
+                });
+            });
+              
+
+        }); 
+
+
+        var pics_counter = 0;
+        function add_project_to_list() {
+
+
+        	var firebaseRef = firebase.database().ref("code");
+
+             	firebaseRef.on("value", function(snapshot) {
+                snapshot.forEach(function(childSnapshot) {
+                var childData = childSnapshot.val();
+                var cnt = childData.counter;
+
+
+                number_counter = cnt;
+                if (cnt == null){
+                    number_counter = 0;
+                }
+                /*alert("Counter :" + counter);*/
+                });
+            });
+
+
+
+        	if(add_counter != 0){
+        		alert("Please make sure to save and update existing projects");
+        	} else {
+        		var firebaseRef = firebase.database().ref();
             /* Let Fletcher Add Projects */
 
-            $("#projectRow").append('<div class="col-md-4" id="temp_project" style="color: black"> <div class="fh5co-portfolio animate-box fadeInUp animated-fast"> <a style="color: black"> <div class="portfolio-entry" style="background-image: url(https://i.imgur.com/hTzxHJE.jpg);"></div> <div class="portfolio-text"> <h3>Bombay Railroad</h3> <p style="color: black">Build an automated system that ensures all the trains arrive in a timely manner</p> <button onclick="saveButton()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"> Save Project </button> <div float:left; display:inline; style="margin: 20px"> <h4> Choose Project Prefrence</h4> <BUTTON id="proj_1_pref_1" onclick="submitClick_1(1)">1</BUTTON> <BUTTON id="proj_1_pref_2" onclick="submitClick_1(2)">2</BUTTON> <BUTTON id="proj_1_pref_2" onclick="submitClick_1(3)">3</BUTTON> <BUTTON id="proj_1_pref_2" onclick="submitClick_1(4)">4</BUTTON> <BUTTON id="proj_1_pref_2" onclick="submitClick_1(5)">5</BUTTON> <BUTTON id="proj_1_pref_2" onclick="submitClick_1(6)">6</BUTTON> <BUTTON id="proj_1_pref_2" onclick="submitClick_1(7)">7</BUTTON> </div> </div> </a> </div> </div>');
 
-            /* Get Existing Code*/
-            var f1 = firebaseRef = firebase.database().ref().child("Code");
+            var pics = ["https://freehtml5.co/demos/air/premium/images/portfolio-2.jpg", "https://freehtml5.co/demos/air/premium/images/portfolio-1.jpg", "https://freehtml5.co/demos/air/premium/images/portfolio-3.jpg", 
+            "https://freehtml5.co/demos/air/premium/images/portfolio-4.jpg", "https://freehtml5.co/demos/air/premium/images/blog-1.jpg", "https://freehtml5.co/demos/air/premium/images/portfolio-6.jpg"];
 
+            var names = ["Cynthias Cactus Company", "Los Pollos Hermanos", "Coats for Kids", "Vacations Express", "Adventures Abroad", "Hoops for Humanity"];
+
+            var cities = ["Reno", "Albuquerque", "Stockholm", "Accra", "Madrid", "Boston"];
+
+            $("#projectRow").append('<div class="col-md-4" id="temp_project" style="color: black"> <div class="fh5co-portfolio animate-box fadeInUp animated-fast"> <a style="color: black"> <div class="portfolio-entry" style="background-image: url( ' + pics[pics_counter] + ');"></div> <div class="portfolio-text"> <h3>' + names[pics_counter] + '</h3>  <h4> 📌 ' + cities[pics_counter] + ' - ' + (number_counter + 1) + '</h4> <p style="color: black">EDIT ME! Write a project description</p>  <div float:left; display:inline; style="margin: 20px"> </div> </div> </a> </div> </div>');
+            
+
+            $("#projectSelectionRow").append('<a style="margin:10px;"> <div class="portfolio-text" id = "selector" > <h3> Project ' + (number_counter+1) +' : Use the Buttons to rank this project</h3> <button id="' + (number_counter+1) + '" onclick="submit(this.id, 1)" style = "margin:10px"  class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"> + </button>  <button id="' + (number_counter+1) + '" onclick="submit(this.id, 0)" style = "margin:10px"  class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"> - </button></div> </a>');
+
+            pics_counter++;
+            number_counter++;
+
+            add_counter++;
+            save_counter = 0;
+            
+             if (pics_counter > 5){
+                pics_counter = 0;
+             }
+        	}
+        }
+
+        
+
+        
+
+
+
+        
+
+
+        function updateCounter(foo){
+
+
+        	if (foo == 1){
+        		
+        	} else {
+        	 	var firebaseRef = firebase.database().ref("code");
+
+             	firebaseRef.on("value", function(snapshot) {
+                snapshot.forEach(function(childSnapshot) {
+                var childData = childSnapshot.val();
+                var cnt = childData.counter;
+
+
+                counter = cnt;
+                if (cnt == null){
+                    counter = 0;
+                }
+                /*alert("Counter :" + counter);*/
+                });
+            });
+
+            if(save_first != 0){
+            	save_first = 0;
+            	return;
+            }
+
+            if (add_counter == 0){
+            	save_first = 0;
+                alert("Please Add a Project First");
+            } else if (save_counter == 0){
+                alert("Make Sure to Save Your Edits");
+            }  else if (add_counter == 1 & save_counter != 0){
+                add_counter = 0;
+                update_counter++;
+                final_update(update_counter);
+                /*firebaseRef.child("projects").child("counter").set(update_counter);*/
+
+            }
+        }
 
             
 
+           
 
-
-
-             var f1 = firebaseRef = firebase.database().ref().child("Code");
-            /* f1 = f1..replace(/\n|\r/g, "");
-             f1.on('value', function(datasnapshot){
-                document.getElementById("head1").innerText = datasnapshot.val();
-
-             }*/
-
+            
+            
         }
+
+
+        function final_update(foo){
+        	var firebaseRef = firebase.database().ref("code");
+
+        	var temp = 0;
+
+        	var firebaseRef = firebase.database().ref("code");
+
+             	firebaseRef.on("value", function(snapshot) {
+                snapshot.forEach(function(childSnapshot) {
+                var childData = childSnapshot.val();
+                var cnt = childData.counter;
+
+
+                temp = cnt;
+                if (cnt == null){
+                    counter = 0;
+                }
+                /*alert("Counter :" + counter);*/
+                });
+            });
+
+             
+            temp++;
+            firebaseRef.child("projects").child("counter").set(temp);
+        }
+
 
 
 
         function saveButton(){
             /* Add Updated Projects list to the Database */
-             var firebaseRef = firebase.database().ref();
 
+            
+
+             
+             save_counter++;
+
+             var firebaseRef = firebase.database().ref();
              var code_block = document.getElementById("projectRow").innerHTML;
+             var code_block_pref = document.getElementById("projectSelectionRow").innerHTML;
+             /*var code_block_last = document.getElementById("projectRow").lastElementChild.innerHTML;*/
              firebaseRef.child("code").child("projects").child("text").set(code_block);
-             counter = counter + 1;
+             firebaseRef.child("code").child("projects").child("textpref").set(code_block_pref);
+             
              firebaseRef.child("code").child("projects").child("counter").set(counter);
 
-              /*$("#projectRow").append(code_block);*/
-              update_projects();
+             /*var code_block_counter = "Project" + counter.toString();
 
+             firebaseRef.child("code").child("projects").child(code_block_counter).set(code_block_last);*/
+             update_projects();
+             if (add_counter != 0){
+             	save_first++;
+             	add_counter = 0;
+            	update_counter++;
+            	final_update(update_counter);
+            	
+            } 
+        }
+         
+
+        function deleteButton(){
+            if (confirm('Are you sure you want to Delete all Projects')) {
+            	var update_counter = 0;
+		        var add_counter = 0;
+		        var save_counter = 0;
+		        var save_first = 0;
+                var firebaseRef = firebase.database().ref();
+                firebaseRef.child("code").child("projects").child("text").set('');
+                firebaseRef.child("code").child("projects").child("textpref").set('');
+                firebaseRef.child("code").child("projects").child("counter").set(0);
+                /*firebaseRef.child("Student").child("suhail").child("project 1").child("Prefrence").set(0);*/
+                update_projects();
+            } else {
+                alert("Good Choice");
+            }
         }
 
-         $( document ).ready(function() {
-            update_projects();
-        }); 
 
         function update_projects(){
-
             var firebaseRef = firebase.database().ref("code");
             firebaseRef.on("value", function(snapshot) {
                 snapshot.forEach(function(childSnapshot) {
                 var childData = childSnapshot.val();
                 var display = childData.text;
+                var displaypref = childData.textpref;
                 display = display.replace('<div class="col-md-4" id="og_add_button"> <div class="fh5co-portfolio animate-box"> <a > <div class="portfolio-text" > <h3>Add Projects</h3> <button onclick="add_project_to_list()" id="project_add" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored"> <i class="material-icons">add</i> </button> <button onclick="update_projects()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"> Update </button> </div> </a> </div> </div> </div> </div> </div>', "");
-
-
                 /*var code_block = document.getElementById("temp_project");
                 code_block.parentNode.removeChild(code_block);*/
                 $("#projectRow").empty();
                 $("#projectRow").append(display);
-
+                $("#projectSelectionRow").empty();
+                $("#projectSelectionRow").append(displaypref);
                 /*alert("Testing");*/
                 });
             });
             
             
         }
-
-
     </script>
 </body>
 
