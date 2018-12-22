@@ -20,7 +20,6 @@
     <meta name="twitter:url" content="" />
     <meta name="twitter:card" content="" />
 
-    <!-- <link href="https://fonts.googleapis.com/css?family=Work+Sans:300,400,500,700,800" rel="stylesheet">    -->
     <link rel="stylesheet" type="text/css" href="dialog-polyfill.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-blue.min.css" />
@@ -88,30 +87,25 @@
         #loginError {
             display: none;
         }
+        
         .studentView {
             display: none;
         }
     </style>
 
-    <!-- Modernizr JS -->
-
-    <!-- FOR IE9 below -->
-    <!--[if lt IE 9]>
-    <script src="js/respond.min.js"></script>
-    <![endif]-->
+    
 
 </head>
 
 <body>
 
-
-
+<!-- Login Page -->
     <dialog id="loginDialog" class="mdl-dialog">
         <h4 class="mdl-dialog__title">Sign In</h4>
         <div class="mdl-dialog__content">
 
             <p id="loginError"> </p>
-            
+
             <p id="checkingPassword"> </p>
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                 <input class="mdl-textfield__input" type="text" id="loginEmail">
@@ -119,9 +113,10 @@
             </div>
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                 <input class="mdl-textfield__input" type="password" id="loginPassword">
-                <label class="mdl-textfield__label" for="sample3">Password</label> 
+                <label class="mdl-textfield__label" for="sample3">Password</label>
             </div>
         </div>
+       <!--  Sign in button -->
         <div class="mdl-dialog__actions">
             <button onclick="submitVal()" id="loginBtn" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored  mdl-js-ripple-effect">
                 Sign In
@@ -130,6 +125,7 @@
         </div>
     </dialog>
 
+
     <div class="login-cover">
         <!-- MDL Spinner Component -->
     </div>
@@ -137,10 +133,12 @@
     <div class="fh5co-loader"></div>
 
     <div id="page">
+
+    <!-- Navigation Bar -->
         <nav class="fh5co-nav" role="navigation">
             <div class="top-menu">
                 <div class="container" id="id01">
-                    <div class="row" >
+                    <div class="row">
                         <div class="col-xs-2">
                             <!-- <div id="fh5co-logo"><a href="index.html">Air<span>.</span></a></div> -->
                         </div>
@@ -148,16 +146,8 @@
                             <ul>
                                 <li><a href="index.html">Home</a></li>
                                 <li class="active"><a href="project.html">Projects</a></li>
-                                <li class="has-dropdown">
-                                    <ul class="dropdown">
-                                        <li><a href="#">Web Design</a></li>
-                                        <li><a href="#">eCommerce</a></li>
-                                        <li><a href="#">Branding</a></li>
-                                        <li><a href="#">API</a></li>
-                                    </ul>
-                                </li>
-                                <!-- <li><a href="about.html">About</a></li> -->
-                                <!-- <li><a href="contact.html">Contact</a></li> -->
+                                
+                                
                                 <li class="btn-cta"><a href="projects.html" onclick="signout()"><span>Sign Out</span></a></li>
                             </ul>
                         </div>
@@ -167,157 +157,131 @@
             </div>
         </nav>
 
+    <!-- Project Display -->
         <div id="fh5co-portfolio">
             <div class="container" id="head1">
-                <div class="row animate-box" >
+                <div class="row animate-box">
                     <div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
                         <h2>Projects</h2>
                         <p>Read through the projects and indicate a preferance</p>
                     </div>
                 </div>
-                 <!-- <div class="col-md-4" id="og_add_button">
-                    </div> -->
+                
 
-                        <div class="fh5co-portfolio animate-box">
+                <div class="fh5co-portfolio animate-box">
 
-                       
+                <!-- Add Projects Button -->
 
+                    <a class="studentView">
+                        <div class="portfolio-text">
 
+                            <h3>Add Projects</h3>
 
-                            <a class="studentView">
-                                <div class="portfolio-text" >
+                            <button onclick="add_project_to_list()" id="project_add" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
+                                <i class="material-icons">add</i>
+                            </button>
 
-                                    <h3>Add Projects</h3>
-
-                                    <button onclick="add_project_to_list()" id="project_add" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
-                                        <i class="material-icons">add</i>
-                                    </button>
-                                    
-                                    <!-- <h3>Update </h3> -->
-
-                                    <!-- <button onclick="update_projects()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
-                                                   <i class="material-icons">add</i>
-                                    </button> -->
-
-                                </div>
-
-                               
-
-
-
-                               
-                            </a>
-
-
-                            <a class="studentView"> 
-                             <div class="portfolio-text" >
-                                    <h3>Save Project Edits</h3>
-
-                                    <button onclick="saveButton()" id="project_add" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
-                                        <i class="material-icons">↓</i>
-                                    </button>
-                                    
-                                    <!-- <h3>Update </h3> -->
-
-                                    <!-- <button onclick="update_projects()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
-                                                   <i class="material-icons">add</i>
-                                    </button> -->
-
-                                </div>
-                            </a>
-
-
-                            <a class="studentView"> 
-                             <div class="portfolio-text" >
-                                    <h3>Update Projects</h3>
-
-                                    <button onclick="updateCounter(0)" id="project_add" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
-                                        <i class="material-icons">⇪</i>
-                                    </button>
-                                    
-                                    
-
-                                </div>
-                            </a>
-
-                            
                         </div>
 
-                   
-                <div id="projectRow" class="row" contenteditable="false">
-                    
+                    </a>
+
+                     <!-- Save Projects Button -->
+
+                    <a class="studentView">
+                        <div class="portfolio-text">
+                            <h3>Save Project Edits</h3>
+
+                            <button onclick="saveButton()" id="project_add" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
+                                <i class="material-icons">↓</i>
+                            </button>
+
+
+                        </div>
+                    </a>
+
+                     <!-- Update Projects Button -->
+
+                    <a class="studentView">
+                        <div class="portfolio-text">
+                            <h3>Update Projects</h3>
+
+                            <button onclick="updateCounter(0)" id="project_add" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
+                                <i class="material-icons">⇪</i>
+                            </button>
+
+                        </div>
+                    </a>
 
                 </div>
-                 <a class="studentView"> 
-                                
-                                <div class="portfolio-text" >
 
-                                    
-                                  <center> <button onclick="deleteButton()" style="background-color: crimson" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
-                                      Delete Projects
-                                    </button> </center> 
+                <!-- Where Projects will be displayed -->
+                <div id="projectRow" class="row" contenteditable="false">
 
-                                </div>
-                            </a>
+                </div>
+                <!-- Delete Project Button -->
+                <a class="studentView">
+
+                    <div class="portfolio-text">
+
+                        <center>
+                            <button onclick="deleteButton()" style="background-color: crimson" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                                Delete Projects
+                            </button>
+                        </center>
+
+                    </div>
+                </a>
             </div>
         </div>
 
+        <!-- Project Prefrence Selection and Display -->
+
         <div id="fh5co-portfolio">
             <div class="container" id="head1">
-                <div class="row animate-box" >
+                <div class="row animate-box">
                     <div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
 
                         <h2>Choose your project prefrence</h2>
                     </div>
                 </div>
+
+                <!-- Project Selection List -->
                 <h3>Your current selections : </h3>
                 <div id="display_pref_div" class="fh5co-portfolio animate-box">
-                
-                	<h4>Project 1 :</h4>
-                	<h4>Project 2 :</h4>
-                	<h4>Project 3 :</h4>
-                	<h4>Project 4 :</h4>
-                	<h4>Project 5 :</h4>
-                	<h4>Project 6 :</h4>
+
+                    <h4>Project 1 :</h4>
+                    <h4>Project 2 :</h4>
+                    <h4>Project 3 :</h4>
+                    <h4>Project 4 :</h4>
+                    <h4>Project 5 :</h4>
+                    <h4>Project 6 :</h4>
 
                 </div>
-                 
+                <!-- Where Project Selection dialogs get added -->
+                <div id="projectSelectionRow" class="fh5co-portfolio animate-box">
 
-                        <div id="projectSelectionRow" class="fh5co-portfolio animate-box">
+                    <div class="row" contenteditable="false">
 
-                       
-
-
-
-
-
-                   
-                <div  class="row" contenteditable="false">
-                   
+                    </div>
 
                 </div>
-                 
             </div>
-        </div>
 
-
-
-        
-
-        <div id="fh5co-started" >
-            <div class="overlay" style="background-color: #64b5f6"></div>
-            <div class="container" >
-                <div class="row animate-box">
-                    <div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
-                         <a >
-                            <div class="portfolio-text" >
+            <!-- Edit Mode  -->
+            <div id="fh5co-started">
+                <div class="overlay" style="background-color: #64b5f6"></div>
+                <div class="container">
+                    <div class="row animate-box">
+                        <div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
+                            <a>
+                                <div class="portfolio-text">
 
                                     <h3 style="color: white">Enter Code Below to turn on edit mode</h3>
-                                    <input style="color: white" class="mdl-textfield__input" type="text" id="editP" >
+                                    <input style="color: white" class="mdl-textfield__input" type="text" id="editP">
                                     <button onclick="edit_allowed()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" style="margin: 10px; background-color: white; color: black;">
-                                      Submit
+                                        Submit
                                     </button>
-                                    
+
                                     <!-- <h3>Update </h3> -->
 
                                     <!-- <button onclick="update_projects()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
@@ -325,588 +289,509 @@
                                     </button> -->
 
                                 </div>
-                        </a></div>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
+            <!-- Footer -->
+            <footer id="fh5co-footer" role="contentinfo">
+                <div class="container">
+                    <div class="row row-pb-md">
+                        <div class="col-md-4 fh5co-widget">
+                            <h4>CS 410 UMB</h4>
+                            <p>Facilis ipsum reprehenderit nemo molestias. Aut cum mollitia reprehenderit. Eos cumque dicta adipisci architecto culpa amet.</p>
+                        </div>
+                        <div class="col-md-2 col-md-push-1 fh5co-widget">
+                            <h4>Links</h4>
+                            <ul class="fh5co-footer-links">
+                                <li><a href="#">Home</a></li>
+                                <li><a href="#">Projects</a></li>
+                                <li><a href="#">Blog</a></li>
+                                <li><a href="#">About</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="col-md-2 col-md-push-1 fh5co-widget">
+                            <h4>Categories</h4>
+                            <ul class="fh5co-footer-links">
+                                <li><a href="#">Landing Page</a></li>
+                                <li><a href="#">Web</a></li>
+                                <li><a href="#">Native Apps</a></li>
+                                <li><a href="#">Systems Architechture</a></li>
+                                <li><a href="#">Miscellanious</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="col-md-4 col-md-push-1 fh5co-widget">
+                            <h4>Contact Information</h4>
+                            <ul class="fh5co-footer-links">
+                                <li>123 West 21th Street,
+                                    <br> Suite 123 Boston MA 02169</li>
+                                <li><a href="tel://1234567920">+ 1235 2355 98</a></li>
+                                <li><a href="mailto:info@yoursite.com">info@yoursite.com</a></li>
+                                <li><a href="http://https://yoursite.com">www.somethin.com</a></li>
+                            </ul>
+                        </div>
+
+                    </div>
+
+                    <div class="row copyright">
+                        <div class="col-md-12 text-center">
+                            <p>
+                                <ul class="fh5co-social-icons">
+                                    <li><a href="#"><i class="icon-twitter"></i></a></li>
+                                    <li><a href="#"><i class="icon-facebook"></i></a></li>
+                                    <li><a href="#"><i class="icon-linkedin"></i></a></li>
+                                    <li><a href="#"><i class="icon-dribbble"></i></a></li>
+                                </ul>
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </footer>
         </div>
 
-        <footer id="fh5co-footer" role="contentinfo" >
-            <div class="container">
-                <div class="row row-pb-md">
-                    <div class="col-md-4 fh5co-widget">
-                        <h4>CS 410 UMB</h4>
-                        <p>Facilis ipsum reprehenderit nemo molestias. Aut cum mollitia reprehenderit. Eos cumque dicta adipisci architecto culpa amet.</p>
-                    </div>
-                    <div class="col-md-2 col-md-push-1 fh5co-widget">
-                        <h4>Links</h4>
-                        <ul class="fh5co-footer-links">
-                            <li><a href="#">Home</a></li>
-                            <li><a href="#">Projects</a></li>
-                            <li><a href="#">Blog</a></li>
-                            <li><a href="#">About</a></li>
-                        </ul>
-                    </div>
+        <div class="gototop js-top">
+            <a href="#" class="js-gotop"><i class="icon-arrow-up22"></i></a>
+        </div>
 
-                    <div class="col-md-2 col-md-push-1 fh5co-widget">
-                        <h4>Categories</h4>
-                        <ul class="fh5co-footer-links">
-                            <li><a href="#">Landing Page</a></li>
-                            <li><a href="#">Web</a></li>
-                            <li><a href="#">Native Apps</a></li>
-                            <li><a href="#">Systems Architechture</a></li>
-                            <li><a href="#">Miscellanious</a></li>
-                        </ul>
-                    </div>
+        <!-- FIREBASE CONNECTION -->
+        <script src="https://www.gstatic.com/firebasejs/5.5.8/firebase.js"></script>
+        <script>
+            // Initialize Firebase
+            var config = {
+                apiKey: "AIzaSyCeF7Sp3Yt-sd4psVBB5HCwmj3X5j8HRtQ",
+                authDomain: "fire-base-web-learn-1998.firebaseapp.com",
+                databaseURL: "https://fire-base-web-learn-1998.firebaseio.com",
+                projectId: "fire-base-web-learn-1998",
+                storageBucket: "fire-base-web-learn-1998.appspot.com",
+                messagingSenderId: "854567164829"
+            };
+            firebase.initializeApp(config);
+        </script>
 
-                    <div class="col-md-4 col-md-push-1 fh5co-widget">
-                        <h4>Contact Information</h4>
-                        <ul class="fh5co-footer-links">
-                            <li>123 West 21th Street,
-                                <br> Suite 123 Boston MA 02169</li>
-                            <li><a href="tel://1234567920">+ 1235 2355 98</a></li>
-                            <li><a href="mailto:info@yoursite.com">info@yoursite.com</a></li>
-                            <li><a href="http://https://yoursite.com">www.somethin.com</a></li>
-                        </ul>
-                    </div>
+        <script type="text/javascript" src="js/index.js"></script>
 
-                </div>
+        <script src="js/modernizr-2.6.2.min.js"></script>
 
-                <div class="row copyright">
-                    <div class="col-md-12 text-center">
-                        <p>
-                            <ul class="fh5co-social-icons">
-                                <li><a href="#"><i class="icon-twitter"></i></a></li>
-                                <li><a href="#"><i class="icon-facebook"></i></a></li>
-                                <li><a href="#"><i class="icon-linkedin"></i></a></li>
-                                <li><a href="#"><i class="icon-dribbble"></i></a></li>
-                            </ul>
-                        </p>
-                    </div>
-                </div>
+        <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+        <!-- jQuery -->
+        <script src="js/jquery.min.js"></script>
+        <!-- jQuery Easing -->
+        <script src="js/jquery.easing.1.3.js"></script>
+        <!-- Bootstrap -->
+        <script src="js/bootstrap.min.js"></script>
+        <!-- Waypoints -->
+        <script src="js/jquery.waypoints.min.js"></script>
+        <!-- Flexslider -->
+        <script src="js/jquery.flexslider-min.js"></script>
+        <!-- Main -->
+        <script src="js/main.js"></script>
 
-            </div>
-        </footer>
-    </div>
+        <script src="dialog-polyfill.js"></script>
 
-    <div class="gototop js-top">
-        <a href="#" class="js-gotop"><i class="icon-arrow-up22"></i></a>
-    </div>
-
-    <!-- FIREBASE CONNECTION -->
-    <script src="https://www.gstatic.com/firebasejs/5.5.8/firebase.js"></script>
-    <script>
-        // Initialize Firebase
-        var config = {
-            apiKey: "AIzaSyCeF7Sp3Yt-sd4psVBB5HCwmj3X5j8HRtQ",
-            authDomain: "fire-base-web-learn-1998.firebaseapp.com",
-            databaseURL: "https://fire-base-web-learn-1998.firebaseio.com",
-            projectId: "fire-base-web-learn-1998",
-            storageBucket: "fire-base-web-learn-1998.appspot.com",
-            messagingSenderId: "854567164829"
-        };
-        firebase.initializeApp(config);
-    </script>
-
-    <script type="text/javascript" src="js/index.js"></script>
-
-    <script src="js/modernizr-2.6.2.min.js"></script>
-
-    <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
-    <!-- jQuery -->
-    <script src="js/jquery.min.js"></script>
-    <!-- jQuery Easing -->
-    <script src="js/jquery.easing.1.3.js"></script>
-    <!-- Bootstrap -->
-    <script src="js/bootstrap.min.js"></script>
-    <!-- Waypoints -->
-    <script src="js/jquery.waypoints.min.js"></script>
-    <!-- Flexslider -->
-    <script src="js/jquery.flexslider-min.js"></script>
-    <!-- Main -->
-    <script src="js/main.js"></script>
-
-    <script src="dialog-polyfill.js"></script>
-
-    <!-- Modal -->
-    <script type="text/javascript">
-        var modal = document.getElementById('id01');
-        var btn = document.getElementById('bruhton');
-        btn.onclick = function() {
-            modal.style.display = "block";
-        }
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
+        <!-- Modal -->
+        <script type="text/javascript">
+            var modal = document.getElementById('id01');
+            var btn = document.getElementById('bruhton');
+            btn.onclick = function() {
+                modal.style.display = "block";
             }
-        }
-    </script>
-
-     <script type="text/javascript">
-     var student_logged_in = 0;
-     var prof_logged_in = 2;
-     var user_logged_in = ""
-     var pref = 0;
-
-     var username = "Fuck";
-     var email = "";
-     var password = "";
-     var submitBtn = document.getElementById("submitBtn");
-        firebase.auth().onAuthStateChanged(function(user) {
-
-            if (user) {
-                $("#hideme").text(user.email);
-                $(".login-cover").hide();
-                var dialog = document.querySelector('#loginDialog');
-                if (!dialog.showModal) {
-                    dialogPolyfill.registerDialog(dialog);
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
                 }
-                dialog.close();
-            } else {
-                var dialog = document.querySelector('#loginDialog');
-                if (!dialog.showModal) {
-                    dialogPolyfill.registerDialog(dialog);
-                }
-                dialog.showModal();
             }
-        });
-        $("#loginBtn").click(
-            function() {
-                email = $("#loginEmail").val();
-                password = $("#loginPassword").val();
-               /* $("#hideme").text(user.displayName);*/
+        </script>
 
-                
-                /*$(".studentView").hide();*/
-                // If it is the Admin 
-                /*user_logged_in = format(email);
+        <script type="text/javascript">
+            
+            
+            
+            var pref = 0;
 
-                if (format(email) == "pencil"){
-                    prof_logged_in = 1;
-                    update_page(prof_logged_in);
+            var email = "";
+            var password = "";
+            var submitBtn = document.getElementById("submitBtn");
+            firebase.auth().onAuthStateChanged(function(user) {
+
+                if (user) {
+                    $("#hideme").text(user.email);
+                    $(".login-cover").hide();
+                    var dialog = document.querySelector('#loginDialog');
+                    if (!dialog.showModal) {
+                        dialogPolyfill.registerDialog(dialog);
+                    }
+                    dialog.close();
                 } else {
-                    student_logged_in = 3;
-                    update_page(student_logged_in);
-                }*/
-
-                
-                $("#checkingEmail").text(email);
-                $("#checkingPassword").text(password);
-                
-                firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
-                    // Handle Errors here.
-                    $("#loginError").show().text(error.message);
-                    // ...
-                });
-                update_projects();
-            }
-        );
-       
-        
-
-        function update_page(){
-            var user = firebase.auth().currentUser;
-            var name = user.displayName;
-            var mail = user.email;
-           /* alert(user);
-            alert(name);
-            alert(mail);*/
-
-
-        }
-
-
-        $( document ).ready(function() {
-            
-        }); 
-       
-        function format(value){
-            value = value.replace(/\./g,'');
-            value = value.replace("@", '');
-            value = value.replace("umbedu", '');
-            value = value.replace("gmailcom", '');
-            return value;
-        }
-        
-        function submitClick_1(value) {
-            var firebaseRef = firebase.database().ref();
-            email = format(email);
-            firebaseRef.child("Student").child(email).child("Project 1").child("Prefrence").set(value);
-        }
-        function submitClick_2(value) {
-            var firebaseRef = firebase.database().ref();
-            email = format(email);
-            firebaseRef.child("Student").child(email).child("Project 2").child("Prefrence").set(value);
-        }
-        function submitClick_3(value) {
-            var firebaseRef = firebase.database().ref();
-            email = format(email);
-            firebaseRef.child("Student").child(email).child("project 3").child("Prefrence").set(value);
-        }
-
-        function save_user_prefrence(value){
-
-        }
-
-        function submit(project_number, increment){
-
-
-        	var firebaseRef = firebase.database().ref();
-
-        	
-
-
-        	//Setting User Prefrence 
-			firebase.auth().onAuthStateChanged(function(user) {
-			    if (user) {
-			        console.log(user);
-			        var user = firebase.auth().currentUser.email; 
-
-			        var project_name = "project" + project_number.toString();
-
-			        
-
-			        if (increment == 1 ){
-			        	pref++;
-			        } else {
-			        	if (pref > 1){
-			        		pref--;
-			        	}
-			        	
-			        }
-			      	display_project_selection(format(user), project_number);
-            		firebaseRef.child(format(user)).child(project_name).child("prefrence").set(pref);
-
-            		/*firebaseRef.child("Student").child(format(user)).child(project_name).child("prefrence").set(pref);*/
-			        
-			        
-			        
-			    } else {
-			        console.log('No user is signed in.');
-			    }
-			});
-
-
-			//Displaying user prefrence 
-
-			
-
-            
-        }
-
-
-        function display_project_selection(username,project_number){
-        	/*alert(username);*/
-        	/*alert(project_number);*/
-        	var firebaseRef = firebase.database().ref(username);
-        	
-        	var pref_num = 0;
-        	var i = 0;
-
-
-            firebaseRef.on("value", function(snapshot) {
-
-            	$("#display_pref_div").empty();
-            	
-                snapshot.forEach(function(childSnapshot) {
-                	
-                var childData = childSnapshot.val();
-                var user_pref = childData.prefrence;
-
-                pref_num = user_pref;
-
-                i++;
-                
-                $("#display_pref_div").append('<h4>Project ' + i + ': ' + user_pref + '</h4>');
-               /* $("ol").append('<li>Project ' + project_number + ': ' + user_pref + '</li>');*/
-               /*$("ol").empty();*/
-
-
-               
-                });
-
-                i = 0;
-            });
-        }
-
-        function signout(){
-            var firebaseRef = firebase.database().ref();
-            firebase.auth().signOut();
-        }
-        
-        /*function addProjects(){
-            var editElem = document.getElementById("projectRow");
-            var userVersion = editElem.innerHTML;
-            document.getElementById("projectRow").innerHTML.
-            localStorage.userEdits = userVersion;
-        }*/
-    </script> 
-
-    
-
-    <script type="text/javascript">
-        var counter = 0;
-
-
-        var update_counter = 0;
-        var add_counter = 0;
-        var save_counter = 0;
-        var save_first = 0;
-
-
-
-        var number_counter = 0;
-
-
-
-        function edit_allowed(){
-            if ($("#editP").val() == "410"){
-                $(".studentView").css("display", "block");
-                $("#pbutton").css("display", "none");
-                document.getElementById('projectRow').contentEditable='true';
-            } 
-        }
-
-
-        $( document ).ready(function() {
-        
-
-            update_projects();
-            var firebaseRef = firebase.database().ref("code");
-             firebaseRef.on("value", function(snapshot) {
-                snapshot.forEach(function(childSnapshot) {
-                var childData = childSnapshot.val();
-                var cnt = childData.counter;
-                /*alert(cnt);*/
-                counter = cnt;
-                if (cnt == null){
-                    counter = 0;
+                    var dialog = document.querySelector('#loginDialog');
+                    if (!dialog.showModal) {
+                        dialogPolyfill.registerDialog(dialog);
+                    }
+                    dialog.showModal();
                 }
-                /*alert("Counter :" + counter);
-                if (update_counter == true){
-                counter++;
-                update_counter = false;
-                } 
-
-                firebaseRef.child("projects").child("counter").set(counter);*/
-
-                });
             });
-              
+            $("#loginBtn").click(
+                function() {
+                    email = $("#loginEmail").val();
+                    password = $("#loginPassword").val();
+                    
 
-        }); 
+                    $("#checkingEmail").text(email);
+                    $("#checkingPassword").text(password);
 
-
-        var pics_counter = 0;
-        function add_project_to_list() {
-
-
-        	var firebaseRef = firebase.database().ref("code");
-
-             	firebaseRef.on("value", function(snapshot) {
-                snapshot.forEach(function(childSnapshot) {
-                var childData = childSnapshot.val();
-                var cnt = childData.counter;
-
-
-                number_counter = cnt;
-                if (cnt == null){
-                    number_counter = 0;
+                    firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+                        // Handle Errors here.
+                        $("#loginError").show().text(error.message);
+                        // ...
+                    });
+                    update_projects();
                 }
-                /*alert("Counter :" + counter);*/
-                });
-            });
+            );
 
+            function update_page() {
+                var user = firebase.auth().currentUser;
+                var name = user.displayName;
+                var mail = user.email;
 
-
-        	if(add_counter != 0){
-        		alert("Please make sure to save and update existing projects");
-        	} else {
-        		var firebaseRef = firebase.database().ref();
-            /* Let Fletcher Add Projects */
-
-
-            var pics = ["https://freehtml5.co/demos/air/premium/images/portfolio-2.jpg", "https://freehtml5.co/demos/air/premium/images/portfolio-1.jpg", "https://freehtml5.co/demos/air/premium/images/portfolio-3.jpg", 
-            "https://freehtml5.co/demos/air/premium/images/portfolio-4.jpg", "https://freehtml5.co/demos/air/premium/images/blog-1.jpg", "https://freehtml5.co/demos/air/premium/images/portfolio-6.jpg"];
-
-            var names = ["Cynthias Cactus Company", "Los Pollos Hermanos", "Coats for Kids", "Vacations Express", "Adventures Abroad", "Hoops for Humanity"];
-
-            var cities = ["Reno", "Albuquerque", "Stockholm", "Accra", "Madrid", "Boston"];
-
-            $("#projectRow").append('<div class="col-md-4" id="temp_project" style="color: black"> <div class="fh5co-portfolio animate-box fadeInUp animated-fast"> <a style="color: black"> <div class="portfolio-entry" style="background-image: url( ' + pics[pics_counter] + ');"></div> <div class="portfolio-text"> <h3>' + names[pics_counter] + '</h3>  <h4> 📌 ' + cities[pics_counter] + ' - ' + (number_counter + 1) + '</h4> <p style="color: black">EDIT ME! Write a project description</p>  <div float:left; display:inline; style="margin: 20px"> </div> </div> </a> </div> </div>');
-            
-
-            $("#projectSelectionRow").append('<a style="margin:10px;"> <div class="portfolio-text" id = "selector" > <h3> Project ' + (number_counter+1) +' : Use the Buttons to rank this project</h3> <button id="' + (number_counter+1) + '" onclick="submit(this.id, 1)" style = "margin:10px"  class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"> + </button>  <button id="' + (number_counter+1) + '" onclick="submit(this.id, 0)" style = "margin:10px"  class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"> - </button></div> </a>');
-
-            pics_counter++;
-            number_counter++;
-
-            add_counter++;
-            save_counter = 0;
-            
-             if (pics_counter > 5){
-                pics_counter = 0;
-             }
-        	}
-        }
-
-        
-
-        
-
-
-
-        
-
-
-        function updateCounter(foo){
-
-
-        	if (foo == 1){
-        		
-        	} else {
-        	 	var firebaseRef = firebase.database().ref("code");
-
-             	firebaseRef.on("value", function(snapshot) {
-                snapshot.forEach(function(childSnapshot) {
-                var childData = childSnapshot.val();
-                var cnt = childData.counter;
-
-
-                counter = cnt;
-                if (cnt == null){
-                    counter = 0;
-                }
-                /*alert("Counter :" + counter);*/
-                });
-            });
-
-            if(save_first != 0){
-            	save_first = 0;
-            	return;
             }
 
-            if (add_counter == 0){
-            	save_first = 0;
-                alert("Please Add a Project First");
-            } else if (save_counter == 0){
-                alert("Make Sure to Save Your Edits");
-            }  else if (add_counter == 1 & save_counter != 0){
-                add_counter = 0;
-                update_counter++;
-                final_update(update_counter);
-                /*firebaseRef.child("projects").child("counter").set(update_counter);*/
+            $(document).ready(function() {
 
-            }
-        }
-
-            
-
-           
-
-            
-            
-        }
-
-
-        function final_update(foo){
-        	var firebaseRef = firebase.database().ref("code");
-
-        	var temp = 0;
-
-        	var firebaseRef = firebase.database().ref("code");
-
-             	firebaseRef.on("value", function(snapshot) {
-                snapshot.forEach(function(childSnapshot) {
-                var childData = childSnapshot.val();
-                var cnt = childData.counter;
-
-
-                temp = cnt;
-                if (cnt == null){
-                    counter = 0;
-                }
-                /*alert("Counter :" + counter);*/
-                });
             });
 
-             
-            temp++;
-            firebaseRef.child("projects").child("counter").set(temp);
-        }
+            function format(value) {
+                value = value.replace(/\./g, '');
+                value = value.replace("@", '');
+                value = value.replace("umbedu", '');
+                value = value.replace("gmailcom", '');
+                return value;
+            }
 
-
-
-
-        function saveButton(){
-            /* Add Updated Projects list to the Database */
-
-            
-
-             
-             save_counter++;
-
-             var firebaseRef = firebase.database().ref();
-             var code_block = document.getElementById("projectRow").innerHTML;
-             var code_block_pref = document.getElementById("projectSelectionRow").innerHTML;
-             /*var code_block_last = document.getElementById("projectRow").lastElementChild.innerHTML;*/
-             firebaseRef.child("code").child("projects").child("text").set(code_block);
-             firebaseRef.child("code").child("projects").child("textpref").set(code_block_pref);
-             
-             firebaseRef.child("code").child("projects").child("counter").set(counter);
-
-             /*var code_block_counter = "Project" + counter.toString();
-
-             firebaseRef.child("code").child("projects").child(code_block_counter).set(code_block_last);*/
-             update_projects();
-             if (add_counter != 0){
-             	save_first++;
-             	add_counter = 0;
-            	update_counter++;
-            	final_update(update_counter);
-            	
-            } 
-        }
-         
-
-        function deleteButton(){
-            if (confirm('Are you sure you want to Delete all Projects')) {
-            	var update_counter = 0;
-		        var add_counter = 0;
-		        var save_counter = 0;
-		        var save_first = 0;
+            function submitClick_1(value) {
                 var firebaseRef = firebase.database().ref();
-                firebaseRef.child("code").child("projects").child("text").set('');
-                firebaseRef.child("code").child("projects").child("textpref").set('');
-                firebaseRef.child("code").child("projects").child("counter").set(0);
-                /*firebaseRef.child("Student").child("suhail").child("project 1").child("Prefrence").set(0);*/
-                update_projects();
-            } else {
-                alert("Good Choice");
+                email = format(email);
+                firebaseRef.child("Student").child(email).child("Project 1").child("Prefrence").set(value);
             }
-        }
 
+            function submitClick_2(value) {
+                var firebaseRef = firebase.database().ref();
+                email = format(email);
+                firebaseRef.child("Student").child(email).child("Project 2").child("Prefrence").set(value);
+            }
 
-        function update_projects(){
-            var firebaseRef = firebase.database().ref("code");
-            firebaseRef.on("value", function(snapshot) {
-                snapshot.forEach(function(childSnapshot) {
-                var childData = childSnapshot.val();
-                var display = childData.text;
-                var displaypref = childData.textpref;
-                display = display.replace('<div class="col-md-4" id="og_add_button"> <div class="fh5co-portfolio animate-box"> <a > <div class="portfolio-text" > <h3>Add Projects</h3> <button onclick="add_project_to_list()" id="project_add" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored"> <i class="material-icons">add</i> </button> <button onclick="update_projects()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"> Update </button> </div> </a> </div> </div> </div> </div> </div>', "");
-                /*var code_block = document.getElementById("temp_project");
-                code_block.parentNode.removeChild(code_block);*/
-                $("#projectRow").empty();
-                $("#projectRow").append(display);
-                $("#projectSelectionRow").empty();
-                $("#projectSelectionRow").append(displaypref);
-                /*alert("Testing");*/
+            function submitClick_3(value) {
+                var firebaseRef = firebase.database().ref();
+                email = format(email);
+                firebaseRef.child("Student").child(email).child("project 3").child("Prefrence").set(value);
+            }
+
+            function save_user_prefrence(value) {
+
+            }
+
+            function submit(project_number, increment) {
+
+                var firebaseRef = firebase.database().ref();
+
+                //Setting User Prefrence 
+                firebase.auth().onAuthStateChanged(function(user) {
+                    if (user) {
+                        console.log(user);
+                        var user = firebase.auth().currentUser.email;
+
+                        var project_name = "project" + project_number.toString();
+
+                        if (increment == 1) {
+                            pref++;
+                        } else {
+                            if (pref > 1) {
+                                pref--;
+                            }
+
+                        }
+                        display_project_selection(format(user), project_number);
+                        firebaseRef.child(format(user)).child(project_name).child("prefrence").set(pref);
+
+                        /*firebaseRef.child("Student").child(format(user)).child(project_name).child("prefrence").set(pref);*/
+
+                    } else {
+                        console.log('No user is signed in.');
+                    }
                 });
+
+                //Displaying user prefrence 
+
+            }
+
+            function display_project_selection(username, project_number) {
+                /*alert(username);*/
+                /*alert(project_number);*/
+                var firebaseRef = firebase.database().ref(username);
+
+                var pref_num = 0;
+                var i = 0;
+
+                firebaseRef.on("value", function(snapshot) {
+
+                    $("#display_pref_div").empty();
+
+                    snapshot.forEach(function(childSnapshot) {
+
+                        var childData = childSnapshot.val();
+                        var user_pref = childData.prefrence;
+
+                        pref_num = user_pref;
+
+                        i++;
+
+                        $("#display_pref_div").append('<h4>Project ' + i + ': ' + user_pref + '</h4>');
+                        /* $("ol").append('<li>Project ' + project_number + ': ' + user_pref + '</li>');*/
+                        /*$("ol").empty();*/
+
+                    });
+
+                    i = 0;
+                });
+            }
+
+            function signout() {
+                var firebaseRef = firebase.database().ref();
+                firebase.auth().signOut();
+            }
+
+            /*function addProjects(){
+                var editElem = document.getElementById("projectRow");
+                var userVersion = editElem.innerHTML;
+                document.getElementById("projectRow").innerHTML.
+                localStorage.userEdits = userVersion;
+            }*/
+        </script>
+
+        <script type="text/javascript">
+            var counter = 0;
+
+            var update_counter = 0;
+            var add_counter = 0;
+            var save_counter = 0;
+            var save_first = 0;
+
+            var number_counter = 0;
+
+            function edit_allowed() {
+                if ($("#editP").val() == "410") {
+                    $(".studentView").css("display", "block");
+                    $("#pbutton").css("display", "none");
+                    document.getElementById('projectRow').contentEditable = 'true';
+                }
+            }
+
+            $(document).ready(function() {
+
+                update_projects();
+                var firebaseRef = firebase.database().ref("code");
+                firebaseRef.on("value", function(snapshot) {
+                    snapshot.forEach(function(childSnapshot) {
+                        var childData = childSnapshot.val();
+                        var cnt = childData.counter;
+                        /*alert(cnt);*/
+                        counter = cnt;
+                        if (cnt == null) {
+                            counter = 0;
+                        }
+                        /*alert("Counter :" + counter);
+                        if (update_counter == true){
+                        counter++;
+                        update_counter = false;
+                        } 
+
+                        firebaseRef.child("projects").child("counter").set(counter);*/
+
+                    });
+                });
+
             });
-            
-            
-        }
-    </script>
+
+            var pics_counter = 0;
+
+            function add_project_to_list() {
+
+                var firebaseRef = firebase.database().ref("code");
+
+                firebaseRef.on("value", function(snapshot) {
+                    snapshot.forEach(function(childSnapshot) {
+                        var childData = childSnapshot.val();
+                        var cnt = childData.counter;
+
+                        number_counter = cnt;
+                        if (cnt == null) {
+                            number_counter = 0;
+                        }
+                        /*alert("Counter :" + counter);*/
+                    });
+                });
+
+                if (add_counter != 0) {
+                    alert("Please make sure to save and update existing projects");
+                } else {
+                    var firebaseRef = firebase.database().ref();
+                    /* Let Fletcher Add Projects */
+
+                    var pics = ["https://freehtml5.co/demos/air/premium/images/portfolio-2.jpg", "https://freehtml5.co/demos/air/premium/images/portfolio-1.jpg", "https://freehtml5.co/demos/air/premium/images/portfolio-3.jpg",
+                        "https://freehtml5.co/demos/air/premium/images/portfolio-4.jpg", "https://freehtml5.co/demos/air/premium/images/blog-1.jpg", "https://freehtml5.co/demos/air/premium/images/portfolio-6.jpg"
+                    ];
+
+                    var names = ["Cynthias Cactus Company", "Los Pollos Hermanos", "Coats for Kids", "Vacations Express", "Adventures Abroad", "Hoops for Humanity"];
+
+                    var cities = ["Reno", "Albuquerque", "Stockholm", "Accra", "Madrid", "Boston"];
+
+                    $("#projectRow").append('<div class="col-md-4" id="temp_project" style="color: black"> <div class="fh5co-portfolio animate-box fadeInUp animated-fast"> <a style="color: black"> <div class="portfolio-entry" style="background-image: url( ' + pics[pics_counter] + ');"></div> <div class="portfolio-text"> <h3>' + names[pics_counter] + '</h3>  <h4> 📌 ' + cities[pics_counter] + ' - ' + (number_counter + 1) + '</h4> <p style="color: black">EDIT ME! Write a project description</p>  <div float:left; display:inline; style="margin: 20px"> </div> </div> </a> </div> </div>');
+
+                    $("#projectSelectionRow").append('<a style="margin:10px;"> <div class="portfolio-text" id = "selector" > <h3> Project ' + (number_counter + 1) + ' : Use the Buttons to rank this project</h3> <button id="' + (number_counter + 1) + '" onclick="submit(this.id, 1)" style = "margin:10px"  class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"> + </button>  <button id="' + (number_counter + 1) + '" onclick="submit(this.id, 0)" style = "margin:10px"  class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"> - </button></div> </a>');
+
+                    pics_counter++;
+                    number_counter++;
+
+                    add_counter++;
+                    save_counter = 0;
+
+                    if (pics_counter > 5) {
+                        pics_counter = 0;
+                    }
+                }
+            }
+
+            function updateCounter(foo) {
+
+                if (foo == 1) {
+
+                } else {
+                    var firebaseRef = firebase.database().ref("code");
+
+                    firebaseRef.on("value", function(snapshot) {
+                        snapshot.forEach(function(childSnapshot) {
+                            var childData = childSnapshot.val();
+                            var cnt = childData.counter;
+
+                            counter = cnt;
+                            if (cnt == null) {
+                                counter = 0;
+                            }
+                            /*alert("Counter :" + counter);*/
+                        });
+                    });
+
+                    if (save_first != 0) {
+                        save_first = 0;
+                        return;
+                    }
+
+                    if (add_counter == 0) {
+                        save_first = 0;
+                        alert("Please Add a Project First");
+                    } else if (save_counter == 0) {
+                        alert("Make Sure to Save Your Edits");
+                    } else if (add_counter == 1 & save_counter != 0) {
+                        add_counter = 0;
+                        update_counter++;
+                        final_update(update_counter);
+                        /*firebaseRef.child("projects").child("counter").set(update_counter);*/
+
+                    }
+                }
+
+            }
+
+            function final_update(foo) {
+                var firebaseRef = firebase.database().ref("code");
+
+                var temp = 0;
+
+                var firebaseRef = firebase.database().ref("code");
+
+                firebaseRef.on("value", function(snapshot) {
+                    snapshot.forEach(function(childSnapshot) {
+                        var childData = childSnapshot.val();
+                        var cnt = childData.counter;
+
+                        temp = cnt;
+                        if (cnt == null) {
+                            counter = 0;
+                        }
+                        /*alert("Counter :" + counter);*/
+                    });
+                });
+
+                temp++;
+                firebaseRef.child("projects").child("counter").set(temp);
+            }
+
+            function saveButton() {
+                /* Add Updated Projects list to the Database */
+
+                save_counter++;
+
+                var firebaseRef = firebase.database().ref();
+                var code_block = document.getElementById("projectRow").innerHTML;
+                var code_block_pref = document.getElementById("projectSelectionRow").innerHTML;
+                /*var code_block_last = document.getElementById("projectRow").lastElementChild.innerHTML;*/
+                firebaseRef.child("code").child("projects").child("text").set(code_block);
+                firebaseRef.child("code").child("projects").child("textpref").set(code_block_pref);
+
+                firebaseRef.child("code").child("projects").child("counter").set(counter);
+
+                /*var code_block_counter = "Project" + counter.toString();
+
+                firebaseRef.child("code").child("projects").child(code_block_counter).set(code_block_last);*/
+                update_projects();
+                if (add_counter != 0) {
+                    save_first++;
+                    add_counter = 0;
+                    update_counter++;
+                    final_update(update_counter);
+
+                }
+            }
+
+            function deleteButton() {
+                if (confirm('Are you sure you want to Delete all Projects')) {
+                    var update_counter = 0;
+                    var add_counter = 0;
+                    var save_counter = 0;
+                    var save_first = 0;
+                    var firebaseRef = firebase.database().ref();
+                    firebaseRef.child("code").child("projects").child("text").set('');
+                    firebaseRef.child("code").child("projects").child("textpref").set('');
+                    firebaseRef.child("code").child("projects").child("counter").set(0);
+                    /*firebaseRef.child("Student").child("suhail").child("project 1").child("Prefrence").set(0);*/
+                    update_projects();
+                } else {
+                    alert("Good Choice");
+                }
+            }
+
+            function update_projects() {
+                var firebaseRef = firebase.database().ref("code");
+                firebaseRef.on("value", function(snapshot) {
+                    snapshot.forEach(function(childSnapshot) {
+                        var childData = childSnapshot.val();
+                        var display = childData.text;
+                        var displaypref = childData.textpref;
+                        display = display.replace('<div class="col-md-4" id="og_add_button"> <div class="fh5co-portfolio animate-box"> <a > <div class="portfolio-text" > <h3>Add Projects</h3> <button onclick="add_project_to_list()" id="project_add" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored"> <i class="material-icons">add</i> </button> <button onclick="update_projects()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"> Update </button> </div> </a> </div> </div> </div> </div> </div>', "");
+                        /*var code_block = document.getElementById("temp_project");
+                        code_block.parentNode.removeChild(code_block);*/
+                        $("#projectRow").empty();
+                        $("#projectRow").append(display);
+                        $("#projectSelectionRow").empty();
+                        $("#projectSelectionRow").append(displaypref);
+                        /*alert("Testing");*/
+                    });
+                });
+
+            }
+        </script>
 </body>
 
 </html>
