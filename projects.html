@@ -118,7 +118,7 @@
         </div>
        <!--  Sign in button -->
         <div class="mdl-dialog__actions">
-            <button onclick="submitVal()" id="loginBtn" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored  mdl-js-ripple-effect">
+            <button onclick="choose_project_preferenceVal()" id="loginBtn" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored  mdl-js-ripple-effect">
                 Sign In
             </button>
             <div id="loginProgress" class="mdl-spinner mdl-js-spinner is-active"></div>
@@ -392,31 +392,19 @@
 
         <script src="dialog-polyfill.js"></script>
 
-        <!-- Modal -->
-        <script type="text/javascript">
-            var modal = document.getElementById('id01');
-            var btn = document.getElementById('bruhton');
-            btn.onclick = function() {
-                modal.style.display = "block";
-            }
-            window.onclick = function(event) {
-                if (event.target == modal) {
-                    modal.style.display = "none";
-                }
-            }
-        </script>
+        
 
         <script type="text/javascript">
             
-            
-            
-            var pref = 0;
+            var pref = 0; //Need to Give this more specific name
 
             var email = "";
             var password = "";
-            var submitBtn = document.getElementById("submitBtn");
+
+            /*User Authentication*/
             firebase.auth().onAuthStateChanged(function(user) {
 
+               /* If user exists hide the login cover*/
                 if (user) {
                     $("#hideme").text(user.email);
                     $(".login-cover").hide();
@@ -433,6 +421,9 @@
                     dialog.showModal();
                 }
             });
+
+            /*Check user email and password*/
+
             $("#loginBtn").click(
                 function() {
                     email = $("#loginEmail").val();
@@ -451,18 +442,10 @@
                 }
             );
 
-            function update_page() {
-                var user = firebase.auth().currentUser;
-                var name = user.displayName;
-                var mail = user.email;
+            /*Formatting email strings
+            suhail.purkar@umb.edu -> suhailpurkar*/
 
-            }
-
-            $(document).ready(function() {
-
-            });
-
-            function format(value) {
+            function format_user_email(value) {
                 value = value.replace(/\./g, '');
                 value = value.replace("@", '');
                 value = value.replace("umbedu", '');
@@ -470,36 +453,18 @@
                 return value;
             }
 
-            function submitClick_1(value) {
-                var firebaseRef = firebase.database().ref();
-                email = format(email);
-                firebaseRef.child("Student").child(email).child("Project 1").child("Prefrence").set(value);
-            }
 
-            function submitClick_2(value) {
-                var firebaseRef = firebase.database().ref();
-                email = format(email);
-                firebaseRef.child("Student").child(email).child("Project 2").child("Prefrence").set(value);
-            }
-
-            function submitClick_3(value) {
-                var firebaseRef = firebase.database().ref();
-                email = format(email);
-                firebaseRef.child("Student").child(email).child("project 3").child("Prefrence").set(value);
-            }
-
-            function save_user_prefrence(value) {
-
-            }
-
-            function submit(project_number, increment) {
+            function choose_project_preference(project_number, increment) {
 
                 var firebaseRef = firebase.database().ref();
 
-                //Setting User Prefrence 
+                /*Setting User Prefrence for projects, Incrementing/Decrementing based on which button clicked
+                + = 1 | - = 0*/
+
                 firebase.auth().onAuthStateChanged(function(user) {
                     if (user) {
                         console.log(user);
+                        //Getting email address of current user logged in
                         var user = firebase.auth().currentUser.email;
 
                         var project_name = "project" + project_number.toString();
@@ -512,23 +477,21 @@
                             }
 
                         }
-                        display_project_selection(format(user), project_number);
-                        firebaseRef.child(format(user)).child(project_name).child("prefrence").set(pref);
+                        display_users_selected_preferences(format_user_email(user), project_number);
+                        //Sending new prefrence to database
+                        firebaseRef.child(format_user_email(user)).child(project_name).child("prefrence").set(pref);
 
-                        /*firebaseRef.child("Student").child(format(user)).child(project_name).child("prefrence").set(pref);*/
 
                     } else {
                         console.log('No user is signed in.');
                     }
                 });
 
-                //Displaying user prefrence 
 
             }
 
-            function display_project_selection(username, project_number) {
-                /*alert(username);*/
-                /*alert(project_number);*/
+            function display_users_selected_preferences(username, project_number) {
+                
                 var firebaseRef = firebase.database().ref(username);
 
                 var pref_num = 0;
@@ -548,8 +511,6 @@
                         i++;
 
                         $("#display_pref_div").append('<h4>Project ' + i + ': ' + user_pref + '</h4>');
-                        /* $("ol").append('<li>Project ' + project_number + ': ' + user_pref + '</li>');*/
-                        /*$("ol").empty();*/
 
                     });
 
@@ -557,17 +518,13 @@
                 });
             }
 
+            //Signing out
             function signout() {
                 var firebaseRef = firebase.database().ref();
                 firebase.auth().signOut();
             }
 
-            /*function addProjects(){
-                var editElem = document.getElementById("projectRow");
-                var userVersion = editElem.innerHTML;
-                document.getElementById("projectRow").innerHTML.
-                localStorage.userEdits = userVersion;
-            }*/
+            
         </script>
 
         <script type="text/javascript">
@@ -580,6 +537,7 @@
 
             var number_counter = 0;
 
+            //Let user edit webpage if they have master code, need to do more work on this
             function edit_allowed() {
                 if ($("#editP").val() == "410") {
                     $(".studentView").css("display", "block");
@@ -601,13 +559,6 @@
                         if (cnt == null) {
                             counter = 0;
                         }
-                        /*alert("Counter :" + counter);
-                        if (update_counter == true){
-                        counter++;
-                        update_counter = false;
-                        } 
-
-                        firebaseRef.child("projects").child("counter").set(counter);*/
 
                     });
                 });
@@ -629,7 +580,7 @@
                         if (cnt == null) {
                             number_counter = 0;
                         }
-                        /*alert("Counter :" + counter);*/
+                        
                     });
                 });
 
@@ -637,7 +588,7 @@
                     alert("Please make sure to save and update existing projects");
                 } else {
                     var firebaseRef = firebase.database().ref();
-                    /* Let Fletcher Add Projects */
+                    /* Let Prof Add Projects */
 
                     var pics = ["https://freehtml5.co/demos/air/premium/images/portfolio-2.jpg", "https://freehtml5.co/demos/air/premium/images/portfolio-1.jpg", "https://freehtml5.co/demos/air/premium/images/portfolio-3.jpg",
                         "https://freehtml5.co/demos/air/premium/images/portfolio-4.jpg", "https://freehtml5.co/demos/air/premium/images/blog-1.jpg", "https://freehtml5.co/demos/air/premium/images/portfolio-6.jpg"
@@ -649,7 +600,7 @@
 
                     $("#projectRow").append('<div class="col-md-4" id="temp_project" style="color: black"> <div class="fh5co-portfolio animate-box fadeInUp animated-fast"> <a style="color: black"> <div class="portfolio-entry" style="background-image: url( ' + pics[pics_counter] + ');"></div> <div class="portfolio-text"> <h3>' + names[pics_counter] + '</h3>  <h4> 📌 ' + cities[pics_counter] + ' - ' + (number_counter + 1) + '</h4> <p style="color: black">EDIT ME! Write a project description</p>  <div float:left; display:inline; style="margin: 20px"> </div> </div> </a> </div> </div>');
 
-                    $("#projectSelectionRow").append('<a style="margin:10px;"> <div class="portfolio-text" id = "selector" > <h3> Project ' + (number_counter + 1) + ' : Use the Buttons to rank this project</h3> <button id="' + (number_counter + 1) + '" onclick="submit(this.id, 1)" style = "margin:10px"  class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"> + </button>  <button id="' + (number_counter + 1) + '" onclick="submit(this.id, 0)" style = "margin:10px"  class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"> - </button></div> </a>');
+                    $("#projectSelectionRow").append('<a style="margin:10px;"> <div class="portfolio-text" id = "selector" > <h3> Project ' + (number_counter + 1) + ' : Use the Buttons to rank this project</h3> <button id="' + (number_counter + 1) + '" onclick="choose_project_preference(this.id, 1)" style = "margin:10px"  class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"> + </button>  <button id="' + (number_counter + 1) + '" onclick="choose_project_preference(this.id, 0)" style = "margin:10px"  class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"> - </button></div> </a>');
 
                     pics_counter++;
                     number_counter++;
@@ -679,7 +630,7 @@
                             if (cnt == null) {
                                 counter = 0;
                             }
-                            /*alert("Counter :" + counter);*/
+                            
                         });
                     });
 
@@ -697,7 +648,7 @@
                         add_counter = 0;
                         update_counter++;
                         final_update(update_counter);
-                        /*firebaseRef.child("projects").child("counter").set(update_counter);*/
+                        
 
                     }
                 }
@@ -720,7 +671,7 @@
                         if (cnt == null) {
                             counter = 0;
                         }
-                        /*alert("Counter :" + counter);*/
+                        
                     });
                 });
 
@@ -736,15 +687,13 @@
                 var firebaseRef = firebase.database().ref();
                 var code_block = document.getElementById("projectRow").innerHTML;
                 var code_block_pref = document.getElementById("projectSelectionRow").innerHTML;
-                /*var code_block_last = document.getElementById("projectRow").lastElementChild.innerHTML;*/
+                
                 firebaseRef.child("code").child("projects").child("text").set(code_block);
                 firebaseRef.child("code").child("projects").child("textpref").set(code_block_pref);
 
                 firebaseRef.child("code").child("projects").child("counter").set(counter);
 
-                /*var code_block_counter = "Project" + counter.toString();
-
-                firebaseRef.child("code").child("projects").child(code_block_counter).set(code_block_last);*/
+                
                 update_projects();
                 if (add_counter != 0) {
                     save_first++;
@@ -765,7 +714,7 @@
                     firebaseRef.child("code").child("projects").child("text").set('');
                     firebaseRef.child("code").child("projects").child("textpref").set('');
                     firebaseRef.child("code").child("projects").child("counter").set(0);
-                    /*firebaseRef.child("Student").child("suhail").child("project 1").child("Prefrence").set(0);*/
+                    
                     update_projects();
                 } else {
                     alert("Good Choice");
@@ -780,13 +729,12 @@
                         var display = childData.text;
                         var displaypref = childData.textpref;
                         display = display.replace('<div class="col-md-4" id="og_add_button"> <div class="fh5co-portfolio animate-box"> <a > <div class="portfolio-text" > <h3>Add Projects</h3> <button onclick="add_project_to_list()" id="project_add" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored"> <i class="material-icons">add</i> </button> <button onclick="update_projects()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"> Update </button> </div> </a> </div> </div> </div> </div> </div>', "");
-                        /*var code_block = document.getElementById("temp_project");
-                        code_block.parentNode.removeChild(code_block);*/
+                        
                         $("#projectRow").empty();
                         $("#projectRow").append(display);
                         $("#projectSelectionRow").empty();
                         $("#projectSelectionRow").append(displaypref);
-                        /*alert("Testing");*/
+                        
                     });
                 });
 
