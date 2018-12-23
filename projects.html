@@ -88,7 +88,10 @@
             display: none;
         }
         
-        .studentView {
+        .professorView {
+            display: block;
+        }
+        .studentView{
             display: block;
         }
     </style>
@@ -162,17 +165,18 @@
             <div class="container" id="head1">
                 <div class="row animate-box">
                     <div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
-                        <h2>Projects</h2>
+                        <h2></h2>
                         <p>Read through the projects and indicate a preferance</p>
                     </div>
                 </div>
+                
                 
 
                 <div class="fh5co-portfolio animate-box">
 
                 <!-- Add Projects Button -->
 
-                    <a class="studentView">
+                    <a class="professorView">
                         <div class="portfolio-text">
 
                             <h3>Add Projects</h3>
@@ -187,7 +191,7 @@
 
                      <!-- Save Projects Button -->
 
-                    <a class="studentView">
+                    <a class="professorView">
                         <div class="portfolio-text">
                             <h3>Save Project Edits</h3>
 
@@ -201,7 +205,7 @@
 
                      <!-- Update Projects Button -->
 
-                    <a class="studentView">
+                    <a class="professorView">
                         <div class="portfolio-text">
                             <h3>Update Projects</h3>
 
@@ -219,7 +223,7 @@
 
                 </div>
                 <!-- Delete Project Button -->
-                <a class="studentView">
+                <a class="professorView">
 
                     <div class="portfolio-text">
 
@@ -231,13 +235,14 @@
 
                         <!-- /* DB Structure Tests */  -->
 
-                        <!-- <center>
-                            <button onclick="db_test()" style="margin: 20px" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
-                                Try it
+                         <center>
+                            <button onclick="check_full_arr()" style="margin: 20px" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                                Generate Script
                             </button>
                         </center>
 
-                        <center>
+
+                      <!--  <center>
                             <button onclick="arr_test()" style="margin: 20px" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
                                 Try it
                             </button>
@@ -256,19 +261,31 @@
                     <div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
 
                         <h2>Choose your project prefrence</h2>
+
                     </div>
                 </div>
 
-                <!-- Project Selection List -->
-                <h3>Your current selections : </h3>
-                <div id="display_pref_div" class="fh5co-portfolio animate-box">
+                <!-- Professor : Project Selection List -->
+                <h3 class="professorView" id="finalscript">Student Selections : </h3>
 
+                <div id="professor_display_pref_div" class="fh5co-portfolio animate-box">
+
+                    
+                    
+
+                </div>
+
+
+                <!-- Student : Project Selection List -->
+                <h3 class="studentView">Your current selections : </h3>
+                <div id="student_display_pref_div" class="fh5co-portfolio animate-box studentView">
+
+                    <!-- Placeholders -->
                     <h4>Project 1 :</h4>
-                    <h4>Project 2 :</h4>
-                    <h4>Project 3 :</h4>
-                    <h4>Project 4 :</h4>
-                    <h4>Project 5 :</h4>
-                    <h4>Project 6 :</h4>
+                    <h4>Project 1 :</h4>
+                    <h4>Project 1 :</h4>
+                    <h4>Project 1 :</h4>
+                    
 
                 </div>
                 <!-- Where Project Selection dialogs get added -->
@@ -280,6 +297,8 @@
 
                 </div>
             </div>
+
+
 
             <!-- Edit Mode  -->
             <div id="fh5co-started">
@@ -308,6 +327,23 @@
                     </div>
                 </div>
             </div>
+
+
+        <!-- HUNGARIAN ALGORITHM TABLE -->
+         
+         <!-- <center> <h1>Example usage of <code>munkres-js</code></h1>
+                <table id="example-table">
+                </table>
+                <p>
+                    Total Cost: <input disabled id="total-cost" />
+                </p>
+                <p>
+                    Indices: <input disabled id="indices" />
+                </p>
+        </center>   -->
+
+            
+
             <!-- Footer -->
             <footer id="fh5co-footer" role="contentinfo">
                 <div class="container">
@@ -386,6 +422,8 @@
             firebase.initializeApp(config);
         </script>
 
+        <script src="js/munkres.js" type="text/javascript"></script>
+
         <script type="text/javascript" src="js/index.js"></script>
 
         <script src="js/modernizr-2.6.2.min.js"></script>
@@ -458,6 +496,8 @@
                 value = value.replace("mailcom", '');
                 return value;
             }
+
+
             function choose_project_preference(project_number, increment) {
                 var firebaseRef = firebase.database().ref();
                 /*Setting User Prefrence for projects, Incrementing/Decrementing based on which button clicked
@@ -478,6 +518,8 @@
                         display_users_selected_preferences(format_user_email(user), project_number);
                         //Sending new prefrence to database
                         firebaseRef.child("students").child("cs410").child(format_user_email(user)).child("projects").child(project_name).child("prefrence").set(pref);
+                        //Adding Project Name
+                        firebaseRef.child("students").child("cs410").child(format_user_email(user)).child("projects").child(project_name).child("pname").set(project_name);
                         firebaseRef.child("students").child("cs410").child(format_user_email(user)).child("name").set(format_user_email(user));
                     } else {
                         console.log('No user is signed in.');
@@ -497,18 +539,19 @@
                 var temp = '/students/cs410/' + username + '/projects/';
                 var firebaseRef = firebase.database().ref(temp);
                 var pref_num = 0;
-                var i = 0;
+                var i = 0; 
                 firebaseRef.on("value", function(snapshot) {
-                    $("#display_pref_div").empty();
+                    $("#student_display_pref_div").empty();
                     snapshot.forEach(function(childSnapshot) {
                         var childData = childSnapshot.val();
+
                         var user_pref = childData.prefrence;
                         
                         add_to_arr(i, user_pref);
 
                         pref_num = user_pref;
                         i++;
-                        $("#display_pref_div").append('<h4>Project ' + i + ': ' + user_pref + '</h4>');
+                        $("#student_display_pref_div").append('<h4>Project ' + i + ': ' + user_pref + '</h4>');
                     });
                     i = 0;
 
@@ -518,6 +561,206 @@
 
 
             }
+
+            
+
+
+
+            $(document).ready(function() {
+                list_of_students();
+            });
+
+
+            var all_students = [];
+
+            function list_of_students(){
+                
+                var temp = '/students/cs410/';
+
+                var i = 0;
+
+                var firebaseRef = firebase.database().ref(temp);
+
+                firebaseRef.on("value", function(snapshot) {
+                    $("#student_display_pref_div").empty();
+                    snapshot.forEach(function(childSnapshot) {
+                        var childData = childSnapshot.val();
+
+                        var user_name = childData.name;
+                        
+                        all_students[i] = user_name;
+
+                        i++;
+                        
+                    });
+                    i = 0;
+                    generate_script(all_students);
+
+                });
+
+                
+            }
+
+
+            /* ['suhail', 'wajeeh']   */
+
+
+            var student_count;
+
+            function generate_script(student_list){
+
+                var project_sort_arr = [];
+
+                student_count = student_list.length;
+
+                
+                for (var i = 0; i < student_list.length; i++){
+
+                    var temp = '/students/cs410/' + student_list[i] + '/projects/';
+
+                    var firebaseRef = firebase.database().ref(temp);
+                    var j = 0;
+
+                    var single_student_arr = [];
+
+                    firebaseRef.on("value", function(snapshot) {
+                        
+                        snapshot.forEach(function(childSnapshot) {
+                            var childData = childSnapshot.val();
+
+                            var user_pref = childData.prefrence;
+
+                            
+
+                            project_sort_arr[0] = [childData.pname];
+                            project_sort_arr[1] = [childData.prefrence];
+                            /*project_sort(project_sort_arr, i);*/
+                            var temp_arr = {astudent:student_list[i], apname:childData.pname,
+                                aprefrence:childData.prefrence};
+
+
+                            single_student_arr.push(temp_arr);
+
+                            /*alert(single_student_arr);*/
+                            j++;
+                            /*project_sort(single_student_arr);*/
+                            single_student_arr_global = single_student_arr;
+                        });
+                        
+                        
+                        j = 0;
+                        project_sort(single_student_arr);
+                        all_student_arr.push(single_student_arr);
+                        
+                    });
+
+                }
+
+
+            }
+
+            var single_student_arr_global;
+
+            var all_student_arr = [];
+
+           /* var single_student_arr = [];
+*/
+            var sort_count = 0;
+
+            function create_all_arr(){
+
+            }
+
+            function project_sort(single_student_arr){
+                 single_student_arr.sort(function(a, b){return a.aprefrence - b.aprefrence});
+            }
+
+            var output = "";
+
+            function check_full_arr(){
+                /*alert("Single Student " + b.toString() );
+                alert("All Student " + all_student_arr.toString());*/
+
+                var number_of_projects = 0;
+
+                    var firebaseRef = firebase.database().ref('/code/');
+
+                    firebaseRef.on("value", function(snapshot) {
+                        
+                        snapshot.forEach(function(childSnapshot) {
+                            var childData = childSnapshot.val();
+
+                             number_of_projects = childData.counter;
+                            
+                    });
+                        
+                });
+
+               /* alert("Student List | Number of Students " + student_count);
+                alert("Number of Projects " + cnt);*/
+
+                                    /* # of Students */
+                for (var i = 0; i < student_count; i++){
+                                        /* of projects */
+                    
+                    for (var j = 0; j < number_of_projects ; j++){ 
+
+                        if ( i == student_count-1){
+                            if (j == 0){
+                                output += ",";
+                            }    
+                        }
+
+                       if (j == 0){
+
+                           output += "'" + all_student_arr[i][j].astudent + "':[" ;
+                       }
+
+                       if (j < number_of_projects-1){
+                          output += "'" + all_student_arr[i][j].apname + "',";
+                       }
+                       else {
+                        output += "'" + all_student_arr[i][j].apname + "'";
+                       }
+
+                       if (j == number_of_projects -1){
+                        /*output -= ",";*/
+                        output += "]";
+
+                       }
+                      
+                     }
+                    }
+                alert(output);
+
+                var final_output = "prefs={" + output + "}";
+
+                document.getElementById("finalscript").innerHTML = final_output;
+
+
+                /*EXPECTED
+                'pencil':['project1','project3','project2','project4'],
+                       'wajeeh':['project1','project2','project3','project4']*/
+
+                /*CURRENT 
+                'pencil':['project2','project1','project3'],'wajeehanwar':['project2','project3','project1']
+
+                /*
+                'pencil':['project2','],'pencil':['project1','],'pencil':['project3','],'wajeehanwar':['project2','],'wajeehanwar':['project3','],'wajeehanwar':['project1','],*/
+
+
+                
+
+                
+
+                
+               
+            }
+
+
+            
+
+
 
             /*Making Matrix To Apply Hungarian algorithm to help assign projects*/
 
@@ -581,7 +824,8 @@
             //Let user edit webpage if they have master code, need to do more work on this
             function edit_allowed() {
                 if ($("#editP").val() == "410") {
-                    $(".studentView").css("display", "block");
+                    $(".professorView").css("display", "block");
+                    $(".studentView").css("display", "none");
                     $("#pbutton").css("display", "none");
                     document.getElementById('projectRow').contentEditable = 'true';
                 }
@@ -626,11 +870,12 @@
                     var names = ["Cynthias Cactus Company", "Los Pollos Hermanos", "Coats for Kids", "Vacations Express", "Adventures Abroad", "Hoops for Humanity"];
                     var cities = ["Reno", "Albuquerque", "Stockholm", "Accra", "Madrid", "Boston"];
                     $("#projectRow").append('<div class="col-md-4" id="temp_project" style="color: black"> <div class="fh5co-portfolio animate-box fadeInUp animated-fast"> <a style="color: black"> <div class="portfolio-entry" style="background-image: url( ' + pics[pics_counter] + ');"></div> <div class="portfolio-text"> <h3>' + names[pics_counter] + '</h3>  <h4> 📌 ' + cities[pics_counter] + ' - ' + (number_counter + 1) + '</h4> <p style="color: black">EDIT ME! Write a project description</p>  <div float:left; display:inline; style="margin: 20px"> </div> </div> </a> </div> </div>');
-                    $("#projectSelectionRow").append('<a style="margin:10px;"> <div class="portfolio-text" id = "selector" > <h3> Project ' + (number_counter + 1) + ' : Use the Buttons to rank this project</h3> <button id="' + (number_counter + 1) + '" onclick="choose_project_preference(this.id, 1)" style = "margin:10px"  class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"> + </button>  <button id="' + (number_counter + 1) + '" onclick="choose_project_preference(this.id, 0)" style = "margin:10px"  class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"> - </button></div> </a>');
+                    $("#projectSelectionRow").append('<a style="margin:10px;" class="studentView"> <div class="portfolio-text" id = "selector" > <h3> Project ' + (number_counter + 1) + ' : Use the Buttons to rank this project</h3> <button id="' + (number_counter + 1) + '" onclick="choose_project_preference(this.id, 1)" style = "margin:10px"  class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"> + </button>  <button id="' + (number_counter + 1) + '" onclick="choose_project_preference(this.id, 0)" style = "margin:10px"  class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"> - </button></div> </a>');
                     pics_counter++;
                     number_counter++;
                     add_counter++;
                     save_counter = 0;
+                    /*$(".studentView").css("display", "none");*/
                     if (pics_counter > 5) {
                         pics_counter = 0;
                     }
@@ -710,6 +955,24 @@
                     final_update(update_counter);
                 }
             }
+
+
+            /*function munk(){
+                 alert("Hey");
+                var munkres = require('munkres-js');
+                alert("No");
+                munkres([
+                  [400, 150, 400],
+                  [400, 450, 600],
+                  [300, 225, 300]
+                ])
+
+                alert("Hey");
+            }*/
+
+
+
+
             function deleteButton() {
                 if (confirm('Are you sure you want to Delete all Projects')) {
                     var update_counter = 0;
@@ -744,6 +1007,65 @@
                 });
             }
         </script>
+
+
+        <!-- MUNK TEST -->
+
+        <script type="text/javascript">/*<![CDATA[*/
+            var N = 3;
+
+            document.addEventListener('DOMContentLoaded', function() {
+                // set up table
+                var table = document.getElementById('example-table');
+
+                for (var i = 0; i < N; ++i) {
+                    var tr = document.createElement('tr');
+
+                    for (var j = 0; j < N; ++j) {
+                        var td = document.createElement('td');
+                        td.setAttribute('id', 'tab-' + i + '-' + j);
+                        var input = document.createElement('input');
+                        input.setAttribute('type', 'text');
+                        input.addEventListener('change', update);
+                        td.appendChild(input);
+                        tr.appendChild(td);
+                    }
+
+                    table.appendChild(tr);
+                }
+
+                update();
+            });
+
+            function update() {
+                var matrix = [];
+                for (var i = 0; i < N; ++i) {
+                    matrix[i] = [];
+                    for (var j = 0; j < N; ++j)
+                        matrix[i][j] = parseInt(document.getElementById('tab-' + i + '-' + j).children[0].value) || 0;
+                }
+
+                var m = new Munkres();
+                var indices = m.compute(matrix);
+
+                var totalCost = 0;
+                for (var i = 0; i < N; ++i)
+                    for (var j = 0; j < N; ++j)
+                        document.getElementById('tab-' + i + '-' + j).className = '';
+
+                for (var k = 0; k < indices.length; ++k) {
+                    var i = indices[k][0], j = indices[k][1];
+                    totalCost += matrix[i][j];
+                    document.getElementById('tab-' + i + '-' + j).className = 'active';
+                }
+
+                document.getElementById('total-cost').value = totalCost;
+                document.getElementById('indices').value = indices.map(function (ind) {
+                    return [ '[', ind.join(','), ']' ].join('');
+                }).join(', ');
+            }
+        /*]]>*/</script>
+
 </body>
 
 </html>
