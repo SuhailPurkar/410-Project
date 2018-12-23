@@ -89,10 +89,19 @@
         }
         
         .professorView {
-            display: block;
+            display: none;
         }
         .studentView{
             display: block;
+        }
+        .addStudentContainer{
+
+        }
+        .emailContainer{
+            float: left;
+        }
+        .passwordContainer{
+            float: right;
         }
     </style>
 
@@ -164,8 +173,8 @@
         <div id="fh5co-portfolio">
             <div class="container" id="head1">
                 <div class="row animate-box">
-                    <div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
-                        <h2></h2>
+                    <div class="col-md-8 col-md-offset-2 text-center fh5co-heading studentView">
+                        <h2>Choose a Project</h2>
                         <p>Read through the projects and indicate a preferance</p>
                     </div>
                 </div>
@@ -222,7 +231,7 @@
                 <div id="projectRow" class="row" contenteditable="false">
 
                 </div>
-                <!-- Delete Project Button -->
+                <!-- Delete Projects Button -->
                 <a class="professorView">
 
                     <div class="portfolio-text">
@@ -258,7 +267,7 @@
         <div id="fh5co-portfolio">
             <div class="container" id="head1">
                 <div class="row animate-box">
-                    <div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
+                    <div class="col-md-8 col-md-offset-2 text-center fh5co-heading studentView">
 
                         <h2>Choose your project prefrence</h2>
 
@@ -266,11 +275,11 @@
                 </div>
 
                 <!-- Professor : Project Selection List -->
-                <h3 class="professorView" id="finalscript">Student Selections : </h3>
+                
 
                 <div id="professor_display_pref_div" class="fh5co-portfolio animate-box">
 
-                    
+                        <div class="professorView" id="finalscript"> </div>
                     
 
                 </div>
@@ -302,18 +311,66 @@
 
             <!-- Edit Mode  -->
             <div id="fh5co-started">
-                <div class="overlay" style="background-color: #64b5f6"></div>
-                <div class="container">
-                    <div class="row animate-box">
-                        <div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
+                <!-- <div class="overlay" ></div> -->
+                <div class="container" style="background-color: #64b5f6">
+                    <div class="row animate-box" >
+                        <div class="col-md-8 col-md-offset-2 text-center fh5co-heading" >
+
+                            <!-- EDIT MODE PROMPT -->
                             <a>
                                 <div class="portfolio-text">
 
-                                    <h3 style="color: white">Enter Code Below to turn on edit mode</h3>
+                                    <h2 style="color: white">Enter Code Below to turn on Professor mode</h2>
                                     <input style="color: white" class="mdl-textfield__input" type="text" id="editP">
                                     <button onclick="edit_allowed()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" style="margin: 10px; background-color: white; color: black;">
-                                        Submit
+                                        Turn on Professor Mode
                                     </button>
+
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <br >
+
+                <div class="container professorView" style="background-color: #ffcc31">
+                    <div class="row animate-box" >
+                        <div class="col-md-8 col-md-offset-2 text-center fh5co-heading" >
+
+                            <!-- ADD STUDENT PROMPT -->
+                            <a >
+                                <div class="portfolio-text">
+
+                                    <h2 style="color: white">Add a stuent </h2>
+
+                                    <div class="addStudentContainer">
+                                        <div>
+                                           <div class="emailContainer">
+                                            <h4 style="color: white">Add student email </h4>
+                                            <input style="color: white; margin: 10px;" class="mdl-textfield__input" type="text" id="add_email_input">
+                                        </div>
+
+                                        <div class="passwordContainer"> 
+                                             <h4 style="color: white; margin: 10px;">Add student password </h4>
+                                             <input style="color: white" class="mdl-textfield__input" type="text" id="add_password_input">
+                                            
+                                        </div> 
+                                        </div>
+
+                                         <button onclick="add_user()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" style="margin: 10px; background-color: white; color: black;">
+                                        Add Student
+                                         </button>
+
+
+                                        
+                                    </div>
+                                    
+                                   
+
+                                    <!-- <button onclick="edit_allowed()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" style="margin: 10px; background-color: white; color: black;">
+                                        Add user
+                                    </button> -->
 
                                     <!-- <h3>Update </h3> -->
 
@@ -540,6 +597,7 @@
                 var firebaseRef = firebase.database().ref(temp);
                 var pref_num = 0;
                 var i = 0; 
+                
                 firebaseRef.on("value", function(snapshot) {
                     $("#student_display_pref_div").empty();
                     snapshot.forEach(function(childSnapshot) {
@@ -551,8 +609,10 @@
 
                         pref_num = user_pref;
                         i++;
+                        
                         $("#student_display_pref_div").append('<h4>Project ' + i + ': ' + user_pref + '</h4>');
                     });
+                    alert
                     i = 0;
 
 
@@ -582,7 +642,7 @@
                 var firebaseRef = firebase.database().ref(temp);
 
                 firebaseRef.on("value", function(snapshot) {
-                    $("#student_display_pref_div").empty();
+                    /*$("#student_display_pref_div").empty();*/
                     snapshot.forEach(function(childSnapshot) {
                         var childData = childSnapshot.val();
 
@@ -733,7 +793,7 @@
                     }
                 alert(output);
 
-                var final_output = "prefs={" + output + "}";
+                var final_output = "import networkx as nx G=nx.DiGraph() prefs={" + output + "} capacities={'Project1':3,'Project2':3,'Project3':3,'Project4':3,'Project5':3,'Project6':3,'Project7':3,'Project8':3,'Project9':3,'Project10':3} num_persons=len(prefs) G.add_node('dest',demand=num_persons) A=[] for person,projectlist in prefs.items(): G.add_node(person,demand=-1) for i,project in enumerate(projectlist): if i==0: cost=-100 # happy to assign first choice elif i==1: cost=-75 # slightly unhappy to assign second choice elif i==2: cost=-50 # ok to assign third choice else: cost=-25 # very unhappy to assign fourth choice G.add_edge(person,project,capacity=1,weight=cost) # Edge taken if person does this project for project,c in capacities.items(): G.add_edge(project,'dest',capacity=c,weight=0) flowdict = nx.min_cost_flow(G) for person in prefs: for project,flow in flowdict[person].items(): if flow: print person,'joins',project";
 
                 document.getElementById("finalscript").innerHTML = final_output;
 
@@ -830,6 +890,34 @@
                     document.getElementById('projectRow').contentEditable = 'true';
                 }
             }
+
+            function add_user(){
+                var new_user_email = $("#add_email_input").val();
+                var new_user_password = $("#add_password_input").val();
+
+                firebase.auth().createUserWithEmailAndPassword(new_user_email, new_user_password).catch(function(error) {
+                  // Handle Errors here.
+                  var errorCode = error.code;
+                  var errorMessage = error.message;
+                  
+                  
+                  // ...
+                });
+
+                if (new_user_email.includes('@') && new_user_password.length >5){
+                    alert("User " + new_user_email + " added");
+                    document.getElementById("add_email_input").value = "";
+                    document.getElementById("add_password_input").value = "";
+                  }
+
+                
+                if (!new_user_email.includes('@')){
+                    alert("Please enter a valid email");
+                } else if (new_user_password.length < 6){
+                    alert("Please enter a password of at least 6 characters");
+                }
+            }
+
             $(document).ready(function() {
                 update_projects();
                 var firebaseRef = firebase.database().ref("code");
@@ -974,12 +1062,19 @@
 
 
             function deleteButton() {
-                if (confirm('Are you sure you want to Delete all Projects')) {
+                if (confirm('Are you sure you want to Delete all Projects and user prefrencec?')) {
                     var update_counter = 0;
                     var add_counter = 0;
                     var save_counter = 0;
                     var save_first = 0;
                     var firebaseRef = firebase.database().ref();
+
+                    /*ADD YOUR FIREBASE DATABASE HERE*/
+
+                    /*ref = new Firebase("fire-base-web-learn-1998.com");
+                    ref.remove();*/
+
+                    firebaseRef.remove();
                     firebaseRef.child("code").child("projects").child("text").set('');
                     firebaseRef.child("code").child("projects").child("textpref").set('');
                     firebaseRef.child("code").child("projects").child("counter").set(0);
