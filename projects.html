@@ -280,6 +280,12 @@
                 <div id="professor_display_pref_div" class="fh5co-portfolio animate-box">
 
                         <div class="professorView" id="finalscript"> </div>
+                        <center>
+                            <button id="copyscript" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect professorView" style="margin: 10px; ">
+                                        Copy Script 
+                            </button> 
+                        </center>
+                        
                     
 
                 </div>
@@ -312,7 +318,7 @@
             <!-- Edit Mode  -->
             <div id="fh5co-started">
                 <!-- <div class="overlay" ></div> -->
-                <div class="container" style="background-color: #64b5f6">
+                <div class="container studentView" style="background-color: #64b5f6">
                     <div class="row animate-box" >
                         <div class="col-md-8 col-md-offset-2 text-center fh5co-heading" >
 
@@ -320,9 +326,9 @@
                             <a>
                                 <div class="portfolio-text">
 
-                                    <h2 style="color: white">Enter Code Below to turn on Professor mode</h2>
-                                    <input style="color: white" class="mdl-textfield__input" type="text" id="editP">
-                                    <button onclick="edit_allowed()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" style="margin: 10px; background-color: white; color: black;">
+                                    <h2 style="color: white">Enter Professor Code Below</h2>
+                                    <input style="color: white" class="mdl-textfield__input" type="text" id="turn_on_professor_mode_input">
+                                    <button onclick="enable_professor_mode()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" style="margin: 10px; background-color: white; color: black;">
                                         Turn on Professor Mode
                                     </button>
 
@@ -334,6 +340,28 @@
 
                 <br >
 
+                <div class="container professorView" style="background-color: #64b5f6" >
+                    <div class="row animate-box" >
+                        <div class="col-md-8 col-md-offset-2 text-center fh5co-heading" >
+
+                            <!-- EDIT MODE PROMPT -->
+                            <a>
+                                <div class="portfolio-text">
+
+                                    <h2 style="color: white">Enter A New Professor Code</h2>
+                                    <input style="color: white" class="mdl-textfield__input" type="text" id="change_code_input">
+                                    <button onclick="change_professor_code()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" style="margin: 10px; background-color: white; color: black;">
+                                        Change Professor Code
+                                    </button>
+
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <br>
+
                 <div class="container professorView" style="background-color: #ffcc31">
                     <div class="row animate-box" >
                         <div class="col-md-8 col-md-offset-2 text-center fh5co-heading" >
@@ -342,17 +370,17 @@
                             <a >
                                 <div class="portfolio-text">
 
-                                    <h2 style="color: white">Add a stuent </h2>
+                                    <h2 style="color: white">Add A Student </h2>
 
                                     <div class="addStudentContainer">
                                         <div>
                                            <div class="emailContainer">
-                                            <h4 style="color: white">Add student email </h4>
+                                            <h4 style="color: white">Add Student Email </h4>
                                             <input style="color: white; margin: 10px;" class="mdl-textfield__input" type="text" id="add_email_input">
                                         </div>
 
                                         <div class="passwordContainer"> 
-                                             <h4 style="color: white; margin: 10px;">Add student password </h4>
+                                             <h4 style="color: white; margin: 10px;">Add Student Password </h4>
                                              <input style="color: white" class="mdl-textfield__input" type="text" id="add_password_input">
                                             
                                         </div> 
@@ -365,18 +393,6 @@
 
                                         
                                     </div>
-                                    
-                                   
-
-                                    <!-- <button onclick="edit_allowed()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" style="margin: 10px; background-color: white; color: black;">
-                                        Add user
-                                    </button> -->
-
-                                    <!-- <h3>Update </h3> -->
-
-                                    <!-- <button onclick="update_projects()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
-                                                   <i class="material-icons">add</i>
-                                    </button> -->
 
                                 </div>
                             </a>
@@ -882,13 +898,34 @@
             var save_first = 0;
             var number_counter = 0;
             //Let user edit webpage if they have master code, need to do more work on this
-            function edit_allowed() {
-                if ($("#editP").val() == "410") {
+            function enable_professor_mode() {
+
+                var prof_code = "";
+
+                var firebaseRef = firebase.database().ref("code");
+                firebaseRef.on("value", function(snapshot) {
+                    snapshot.forEach(function(childSnapshot) {
+                        var childData = childSnapshot.val();
+                        prof_code = childData.pcode;
+                    });
+                });
+
+                if ($("#turn_on_professor_mode_input").val() == prof_code) {
                     $(".professorView").css("display", "block");
                     $(".studentView").css("display", "none");
                     $("#pbutton").css("display", "none");
                     document.getElementById('projectRow').contentEditable = 'true';
+                } else{
+                    alert("Wrong code");
                 }
+            }
+
+            function change_professor_code(){
+                var temp = $("#change_code_input").val();
+
+                var firebaseRef = firebase.database().ref("code");
+                firebaseRef.child("projects").child("pcode").set(temp);
+                alert("Professor Code Changed to : " + temp);
             }
 
             function add_user(){
@@ -905,7 +942,7 @@
                 });
 
                 if (new_user_email.includes('@') && new_user_password.length >5){
-                    alert("User " + new_user_email + " added");
+                    alert("User " + new_user_email + " has been added");
                     document.getElementById("add_email_input").value = "";
                     document.getElementById("add_password_input").value = "";
                   }
@@ -1101,6 +1138,31 @@
                     });
                 });
             }
+        </script>
+
+        <script type="text/javascript">
+            var copyEmailBtn = document.querySelector('#copyscript');  
+            copyEmailBtn.addEventListener('click', function(event) {  
+              // Select the email link anchor text  
+              var emailLink = document.querySelector('#finalscript');  
+              var range = document.createRange();  
+              range.selectNode(emailLink);  
+              window.getSelection().addRange(range);  
+
+              try {  
+                // Now that we've selected the anchor text, execute the copy command  
+                var successful = document.execCommand('copy');  
+                var msg = successful ? 'successful' : 'unsuccessful';  
+                console.log('Copy email command was ' + msg);  
+              } catch(err) {  
+                console.log('Oops, unable to copy');  
+              }  
+
+              
+              // Remove the selections - NOTE: Should use
+              // removeRange(range) when it is supported  
+              window.getSelection().removeAllRanges();  
+            });
         </script>
 
 
