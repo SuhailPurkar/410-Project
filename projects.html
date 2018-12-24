@@ -1,3 +1,4 @@
+
 <!DOCTYPE HTML>
 <html>
 
@@ -190,7 +191,7 @@
 
                             <h3>Add Projects</h3>
 
-                            <button onclick="add_project_to_list()" id="project_add" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
+                            <button onclick="add_project()" id="project_add" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
                                 <i class="material-icons">add</i>
                             </button>
 
@@ -204,7 +205,7 @@
                         <div class="portfolio-text">
                             <h3>Save Project Edits</h3>
 
-                            <button onclick="saveButton()" id="project_add" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
+                            <button onclick="save_projects()" id="project_add" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
                                 <i class="material-icons">↓</i>
                             </button>
 
@@ -237,7 +238,7 @@
                     <div class="portfolio-text">
 
                         <center>
-                            <button onclick="deleteButton()" style="background-color: crimson" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                            <button onclick="delete_projects()" style="background-color: crimson" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
                                 Delete Projects
                             </button>
                         </center>
@@ -245,7 +246,7 @@
                         <!-- /* DB Structure Tests */  -->
 
                          <center>
-                            <button onclick="check_full_arr()" style="margin: 20px" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                            <button onclick="generate_script()" style="margin: 20px" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
                                 Generate Script
                             </button>
                         </center>
@@ -577,6 +578,8 @@
 
             var current_user_logged_in;
 
+            /*Function to support User Interface for students setting project prefrences*/
+
             function choose_project_preference(project_number, increment) {
 
                 var firebaseRef = firebase.database().ref();
@@ -618,6 +621,7 @@
 
             var pref_arr = [];
 
+            /*Returns the number of projects*/
 
             function number_of_projects(){
                 var temp;
@@ -657,7 +661,7 @@
             });
 
             
-
+            /* Displays users project preferences */
 
             function display_users_selected_preferences(username) {
                 
@@ -707,6 +711,8 @@
 
             var all_students = [];
 
+            /* Populates the all_students array with the name of every student who has indicated project prefrences */
+
             function list_of_students(){
                 
                 var temp = '/students/cs410/';
@@ -728,7 +734,7 @@
                         
                     });
                     i = 0;
-                    generate_script(all_students);
+                    build_output_array(all_students);
 
                 });
 
@@ -741,7 +747,9 @@
 
             var student_count;
 
-            function generate_script(student_list){
+            /* Creates the all_student_arr, an array composed of single_student_arr arrays. The single_student_arr contains the project preferences for a student */
+
+            function build_output_array(student_list){
 
                 var project_sort_arr = [];
 
@@ -801,17 +809,24 @@
 */
             var sort_count = 0;
 
+
+
             function create_all_arr(){
 
             }
+
+            /*Sorts the single_student_arr by project prefrence*/
 
             function project_sort(single_student_arr){
                  single_student_arr.sort(function(a, b){return a.aprefrence - b.aprefrence});
             }
 
             var output = "";
+            var c_output = "";
 
-            function check_full_arr(){
+            /*Generates the python script*/
+
+            function generate_script(){
                 /*alert("Single Student " + b.toString() );
                 alert("All Student " + all_student_arr.toString());*/
 
@@ -865,9 +880,28 @@
                       
                      }
                     }
+
+                var students_per_project = 3;
+                
+                for (var k = 0; k < number_of_projects; k++){
+                    if (k == number_of_projects-1){
+                        c_output += "'Project" + (k+1) + "':" + students_per_project;
+                    } 
+                    else {
+                        c_output += "'Project" + (k+1) + "':" + students_per_project +",";
+                    }
+
+                    
+                }
+
+                /*capacities={'Project1':3,'Project2':3,'Project3':3,'Project4':3}*/
+
+                /*capacities={'Project1':3,'Project2':3,'Project3':3,'Project4':3,'Project5':3,'Project6':3,'Project7':3,'Project8':3,'Project9':3,'Project10':3}*/
+
+
                 /*alert(output);*/
 
-                var final_output = "import networkx as nx G=nx.DiGraph() prefs={" + output + "} capacities={'Project1':3,'Project2':3,'Project3':3,'Project4':3,'Project5':3,'Project6':3,'Project7':3,'Project8':3,'Project9':3,'Project10':3} num_persons=len(prefs) G.add_node('dest',demand=num_persons) A=[] for person,projectlist in prefs.items(): G.add_node(person,demand=-1) for i,project in enumerate(projectlist): if i==0: cost=-100 # happy to assign first choice elif i==1: cost=-75 # slightly unhappy to assign second choice elif i==2: cost=-50 # ok to assign third choice else: cost=-25 # very unhappy to assign fourth choice G.add_edge(person,project,capacity=1,weight=cost) # Edge taken if person does this project for project,c in capacities.items(): G.add_edge(project,'dest',capacity=c,weight=0) flowdict = nx.min_cost_flow(G) for person in prefs: for project,flow in flowdict[person].items(): if flow: print person,'joins',project";
+                var final_output = "import networkx as nx G=nx.DiGraph() prefs={" + output + "} capacities={" + c_output +"} num_persons=len(prefs) G.add_node('dest',demand=num_persons) A=[] for person,projectlist in prefs.items(): G.add_node(person,demand=-1) for i,project in enumerate(projectlist): if i==0: cost=-100 # happy to assign first choice elif i==1: cost=-75 # slightly unhappy to assign second choice elif i==2: cost=-50 # ok to assign third choice else: cost=-25 # very unhappy to assign fourth choice G.add_edge(person,project,capacity=1,weight=cost) # Edge taken if person does this project for project,c in capacities.items(): G.add_edge(project,'dest',capacity=c,weight=0) flowdict = nx.min_cost_flow(G) for person in prefs: for project,flow in flowdict[person].items(): if flow: print person,'joins',project";
 
                 document.getElementById("finalscript").innerHTML = final_output;
 
@@ -933,7 +967,7 @@
             }
 
 
-            //Signing out
+            /*Signing out user*/
             function signout() {
                 var firebaseRef = firebase.database().ref();
                 firebase.auth().signOut();
@@ -955,7 +989,9 @@
             var save_counter = 0;
             var save_first = 0;
             var number_counter = 0;
-            //Let user edit webpage if they have master code, need to do more work on this
+            
+            /*Lets user edit project Interface, change professor code and add users*/
+
             function enable_professor_mode() {
 
                 var prof_code = "";
@@ -978,6 +1014,7 @@
                 }
             }
 
+            /*Changes the Professor code needed to enable Professor mode*/
             function change_professor_code(){
                 var temp = $("#change_code_input").val();
 
@@ -1030,7 +1067,8 @@
             });
             var pics_counter = 0;
             
-            function add_project_to_list() {
+            /*Adds a new user*/
+            function add_project() {
                 var firebaseRef = firebase.database().ref("code");
                 firebaseRef.on("value", function(snapshot) {
                     snapshot.forEach(function(childSnapshot) {
@@ -1092,12 +1130,14 @@
                     } else if (add_counter == 1 & save_counter != 0) {
                         add_counter = 0;
                         update_counter++;
-                        final_update(update_counter);
+                        update_project_counter(update_counter);
                         
                     }
                 }
             }
-            function final_update(foo) {
+
+            /* Managing project add/save/upload*/
+            function update_project_counter(foo) {
                 var firebaseRef = firebase.database().ref("code");
                 var temp = 0;
                 var firebaseRef = firebase.database().ref("code");
@@ -1119,8 +1159,8 @@
 
 
 
-
-            function saveButton() {
+            /*Saves project edits to database*/
+            function save_projects() {
                 /* Add Updated Projects list to the Database */
                 save_counter++;
                 var firebaseRef = firebase.database().ref();
@@ -1136,7 +1176,7 @@
                     save_first++;
                     add_counter = 0;
                     update_counter++;
-                    final_update(update_counter);
+                    update_project_counter(update_counter);
                 }
             }
 
@@ -1156,9 +1196,9 @@
 
 
 
-
-            function deleteButton() {
-                if (confirm('Are you sure you want to Delete all Projects and user prefrencec?')) {
+            /*Deletes project data and user prefrence data*/
+            function delete_projects() {
+                if (confirm('Are you sure you want to Delete all Projects and user prefrences?')) {
                     var update_counter = 0;
                     var add_counter = 0;
                     var save_counter = 0;
@@ -1186,6 +1226,7 @@
                 }
             }
 
+            /* Gets the professor code */
             function get_pcode(){
 
                 var firebaseRef = firebase.database().ref("code");
@@ -1204,6 +1245,7 @@
                 return original_pcode;
             }
 
+            /* Uploads projects to the database */
             function update_projects() {
                 var firebaseRef = firebase.database().ref("code");
                 firebaseRef.on("value", function(snapshot) {
@@ -1211,7 +1253,7 @@
                         var childData = childSnapshot.val();
                         var display = childData.text;
                         var displaypref = childData.textpref;
-                        display = display.replace('<div class="col-md-4" id="og_add_button"> <div class="fh5co-portfolio animate-box"> <a > <div class="portfolio-text" > <h3>Add Projects</h3> <button onclick="add_project_to_list()" id="project_add" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored"> <i class="material-icons">add</i> </button> <button onclick="update_projects()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"> Update </button> </div> </a> </div> </div> </div> </div> </div>', "");
+                        display = display.replace('<div class="col-md-4" id="og_add_button"> <div class="fh5co-portfolio animate-box"> <a > <div class="portfolio-text" > <h3>Add Projects</h3> <button onclick="add_project()" id="project_add" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored"> <i class="material-icons">add</i> </button> <button onclick="update_projects()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"> Update </button> </div> </a> </div> </div> </div> </div> </div>', "");
                         
                         $("#projectRow").empty();
                         $("#projectRow").append(display);
@@ -1224,6 +1266,7 @@
         </script>
 
         <script type="text/javascript">
+            /*Copy Button code*/
             var copyEmailBtn = document.querySelector('#copyscript');  
             copyEmailBtn.addEventListener('click', function(event) {  
               // Select the email link anchor text  
