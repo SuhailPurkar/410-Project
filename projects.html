@@ -527,7 +527,7 @@
 
         <script type="text/javascript">
             
-            var pref = 1; //Need to Give this more specific name
+            var pref = 1; 
             var email = "";
             var password = "";
             /*User Authentication*/
@@ -632,7 +632,7 @@
                         var cnt = childData.counter;
                         temp = cnt;
 
-                        /*alert(cnt);*/
+                       
                         counter = cnt;
                         if (cnt == null) {
                             counter = 0;
@@ -656,7 +656,6 @@
                 });
 
                 
-                /*display_users_selected_preferences(current_user);*/
                 
             });
 
@@ -665,8 +664,6 @@
 
             function display_users_selected_preferences(username) {
                 
-                
-                /*alert(username);*/
 
                 var temp = '/students/cs410/' + username + '/projects/';
                 var firebaseRef = firebase.database().ref(temp);
@@ -722,7 +719,7 @@
                 var firebaseRef = firebase.database().ref(temp);
 
                 firebaseRef.on("value", function(snapshot) {
-                    /*$("#student_display_pref_div").empty();*/
+                    
                     snapshot.forEach(function(childSnapshot) {
                         var childData = childSnapshot.val();
 
@@ -741,8 +738,6 @@
                 
             }
 
-
-            /* ['suhail', 'wajeeh']   */
 
 
             var student_count;
@@ -776,16 +771,16 @@
 
                             project_sort_arr[0] = [childData.pname];
                             project_sort_arr[1] = [childData.prefrence];
-                            /*project_sort(project_sort_arr, i);*/
+                            
                             var temp_arr = {astudent:student_list[i], apname:childData.pname,
                                 aprefrence:childData.prefrence};
 
 
                             single_student_arr.push(temp_arr);
 
-                            /*alert(single_student_arr);*/
+                            
                             j++;
-                            /*project_sort(single_student_arr);*/
+                            
                             single_student_arr_global = single_student_arr;
                         });
                         
@@ -805,8 +800,7 @@
 
             var all_student_arr = [];
 
-           /* var single_student_arr = [];
-*/
+           
             var sort_count = 0;
 
 
@@ -827,8 +821,7 @@
             /*Generates the python script*/
 
             function generate_script(){
-                /*alert("Single Student " + b.toString() );
-                alert("All Student " + all_student_arr.toString());*/
+                
 
                 var number_of_projects = 0;
 
@@ -845,12 +838,11 @@
                         
                 });
 
-               /* alert("Student List | Number of Students " + student_count);
-                alert("Number of Projects " + cnt);*/
+               
 
-                                    /* # of Students */
+                                  
                 for (var i = 0; i < student_count; i++){
-                                        /* of projects */
+                                        
                     
                     for (var j = 0; j < number_of_projects ; j++){ 
 
@@ -894,27 +886,14 @@
                     
                 }
 
-                /*capacities={'Project1':3,'Project2':3,'Project3':3,'Project4':3}*/
-
-                /*capacities={'Project1':3,'Project2':3,'Project3':3,'Project4':3,'Project5':3,'Project6':3,'Project7':3,'Project8':3,'Project9':3,'Project10':3}*/
-
-
-                /*alert(output);*/
+                
 
                 var final_output = "import networkx as nx G=nx.DiGraph() prefs={" + output + "} capacities={" + c_output +"} num_persons=len(prefs) G.add_node('dest',demand=num_persons) A=[] for person,projectlist in prefs.items(): G.add_node(person,demand=-1) for i,project in enumerate(projectlist): if i==0: cost=-100 # happy to assign first choice elif i==1: cost=-75 # slightly unhappy to assign second choice elif i==2: cost=-50 # ok to assign third choice else: cost=-25 # very unhappy to assign fourth choice G.add_edge(person,project,capacity=1,weight=cost) # Edge taken if person does this project for project,c in capacities.items(): G.add_edge(project,'dest',capacity=c,weight=0) flowdict = nx.min_cost_flow(G) for person in prefs: for project,flow in flowdict[person].items(): if flow: print person,'joins',project";
 
                 document.getElementById("finalscript").innerHTML = final_output;
 
 
-                /*EXPECTED
-                'pencil':['project1','project3','project2','project4'],
-                       'wajeeh':['project1','project2','project3','project4']*/
-
-                /*CURRENT 
-                'pencil':['project2','project1','project3'],'wajeehanwar':['project2','project3','project1']
-
-                /*
-                'pencil':['project2','],'pencil':['project1','],'pencil':['project3','],'wajeehanwar':['project2','],'wajeehanwar':['project3','],'wajeehanwar':['project1','],*/
+                
 
 
                 
@@ -953,7 +932,7 @@
                         var childData = childSnapshot.val();
                         var user_name = childData.name;
                         
-                        /*alert(user_name);*/
+                        
                         add_to_arr(i, user_name);
 
                         
@@ -975,8 +954,7 @@
 
 
 
-           /* var book = 'books';
-            db_test(book);*/
+           
 
            
             
@@ -1057,7 +1035,7 @@
                     snapshot.forEach(function(childSnapshot) {
                         var childData = childSnapshot.val();
                         var cnt = childData.counter;
-                        /*alert(cnt);*/
+                        
                         counter = cnt;
                         if (cnt == null) {
                             counter = 0;
@@ -1097,7 +1075,7 @@
                     number_counter++;
                     add_counter++;
                     save_counter = 0;
-                    /*$(".studentView").css("display", "none");*/
+                    
                     if (pics_counter > 5) {
                         pics_counter = 0;
                     }
@@ -1181,18 +1159,6 @@
             }
 
 
-            /*function munk(){
-                 alert("Hey");
-                var munkres = require('munkres-js');
-                alert("No");
-                munkres([
-                  [400, 150, 400],
-                  [400, 450, 600],
-                  [300, 225, 300]
-                ])
-
-                alert("Hey");
-            }*/
 
 
 
@@ -1206,11 +1172,6 @@
                     var firebaseRef = firebase.database().ref();
                     
 
-                    /*ADD YOUR FIREBASE DATABASE HERE*/
-
-                    /*ref = new Firebase("fire-base-web-learn-1998.com");
-                    ref.remove();*/
-
                     original_pcode = get_pcode();
 
                     firebaseRef.remove();
@@ -1220,7 +1181,7 @@
                     firebaseRef.child("code").child("projects").child("pcode").set(original_pcode);
                     
                     
-                    /*update_projects();*/
+                    
                 } else {
                     alert("Good Choice");
                 }
