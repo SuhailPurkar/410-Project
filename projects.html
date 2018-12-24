@@ -296,7 +296,8 @@
                 <div id="student_display_pref_div" class="fh5co-portfolio animate-box studentView">
 
                     <!-- Placeholders -->
-                    <h4>Hey</h4><!-- 
+                    <!-- <h4>Hey</h4> -->
+                    <!-- 
                     <h4>Project 1 :</h4>
                     <h4>Project 1 :</h4>
                     <h4>Project 1 :</h4> -->
@@ -570,6 +571,7 @@
                 return value;
             }
 
+            var current_user_logged_in;
 
             function choose_project_preference(project_number, increment) {
 
@@ -577,6 +579,7 @@
                 /*Setting User Prefrence for projects, Incrementing/Decrementing based on which button clicked
                 + = 1 | - = 0*/
                 firebase.auth().onAuthStateChanged(function(user) {
+                    current_user_logged_in = format_user_email(firebase.auth().currentUser.email);
                     if (user) {
                         console.log(user);
                         //Getting email address of current user logged in
@@ -597,7 +600,7 @@
                                 pref--;
                             }
                         }
-                        display_users_selected_preferences(format_user_email(user), project_number);
+                        display_users_selected_preferences(format_user_email(user));
                         //Sending new prefrence to database
                         firebaseRef.child("students").child("cs410").child(format_user_email(user)).child("projects").child(project_name).child("prefrence").set(pref);
                         //Adding Project Name
@@ -631,17 +634,38 @@
                 return temp;
             }
 
+            /* DISPLAYING EXISTING SELECTIONS*/
+            $(document).ready(function() {
+                var current_user;
 
+                firebase.auth().onAuthStateChanged(function(user) {
+                    if (user) {
+                        
+                        
+                        current_user = format_user_email(firebase.auth().currentUser.email);
+                        display_users_selected_preferences(current_user);
+                    } else {}
+                });
 
-
-
-            function display_users_selected_preferences(username, project_number) {
                 
+                /*display_users_selected_preferences(current_user);*/
+                
+            });
+
+            
+
+
+            function display_users_selected_preferences(username) {
+                
+                
+                /*alert(username);*/
 
                 var temp = '/students/cs410/' + username + '/projects/';
                 var firebaseRef = firebase.database().ref(temp);
                 var pref_num = 0;
                 var i = 0; 
+
+
                 
                 firebaseRef.on("value", function(snapshot) {
                     $("#student_display_pref_div").empty();
@@ -673,6 +697,7 @@
 
             $(document).ready(function() {
                 list_of_students();
+
             });
 
 
@@ -1024,7 +1049,7 @@
                     ];
                     var names = ["Cynthias Cactus Company", "Los Pollos Hermanos", "Coats for Kids", "Vacations Express", "Adventures Abroad", "Hoops for Humanity"];
                     var cities = ["Reno", "Albuquerque", "Stockholm", "Accra", "Madrid", "Boston"];
-                    $("#projectRow").append('<div class="col-md-4" id="temp_project" style="color: black"> <div class="fh5co-portfolio animate-box fadeInUp animated-fast"> <a style="color: black"> <div class="portfolio-entry" style="background-image: url( ' + pics[pics_counter] + ');"></div> <div class="portfolio-text"> <h3>' + names[pics_counter] + '</h3>  <h4> 📌 ' + cities[pics_counter] + ' - ' + (number_counter + 1) + '</h4> <p style="color: black">EDIT ME! Write a project description</p>  <div float:left; display:inline; style="margin: 20px"> </div> </div> </a> </div> </div>');
+                    $("#projectRow").append('<div class="col-md-4" id="temp_project" style="color: black"> <div class="fh5co-portfolio animate-box fadeInUp animated-fast"> <a style="color: black"> <center> <h1> Project ' + (number_counter + 1) +' </h1> </center> <div class="portfolio-entry" style="background-image: url( ' + pics[pics_counter] + ');"></div> <div class="portfolio-text"> <h3>' + names[pics_counter] + '</h3> <h4> 📌 ' + cities[pics_counter] + ' - ' + (number_counter + 1) + '</h4> <p style="color: black">EDIT ME! Write a project description</p> <div float:left; display:inline; style="margin: 20px"> </div> </div> </a> </div> </div>');
                     $("#projectSelectionRow").append('<a style="margin:10px;" > <div class="portfolio-text" id = "selector" > <h3> Project ' + (number_counter + 1) + ' : Use the Buttons to rank this project</h3> <button id="' + (number_counter + 1) + '" onclick="choose_project_preference(this.id, 1)" style = "margin:10px"  class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"> + </button>  <button id="' + (number_counter + 1) + '" onclick="choose_project_preference(this.id, 0)" style = "margin:10px"  class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"> - </button></div> </a>');
                     pics_counter++;
                     number_counter++;
